@@ -12,8 +12,7 @@
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "deploy": "gatsby build && gh-pages -d public -b main"
+    "clean": "gatsby clean"
   },
   "dependencies": {
     "@mdx-js/react": "^2.3.0",
@@ -25,8 +24,5 @@
     "gatsby-transformer-sharp": "^5.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "gh-pages": "^6.0.0"
   }
 }
