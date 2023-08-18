@@ -1,6 +1,6 @@
 .container {
     margin: auto;
-    max-width: 500px;
+    max-width: 800px;
     font-family: sans-serif;
   }
 
@@ -11,6 +11,8 @@ color: rebeccapurple;
 display: flex;
 list-style: none;
 padding-left: 0;
+position: fixed;
+top: 0;
 }
 .nav-link-item {
 padding-right: 2rem;
@@ -25,3 +27,24 @@ color: black;
     font-weight: 700;
     margin: 3rem 0;
   }
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+}
+
+.footer-bar {
+    background-color: #f2f2f2;
+    color: #444444;
+    height: 50px;
+  }
+
+.footer-bar p {
+    margin: 0;
+    padding: 0;
+    line-height: 50px;
+    text-align: center;
+    font-family: sans-serif;
+    }
