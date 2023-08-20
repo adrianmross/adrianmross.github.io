@@ -9,10 +9,9 @@
 .profile-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
-.typewriter-container {
+typewriter-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +22,7 @@
     border-right: .15em solid black; /* The typwriter cursor */
     white-space: nowrap; /* Keeps the content on a single line */
     margin: 0 auto; /* Gives that scrolling effect as the typing happens */
-    letter-spacing: .1em; /* Adjust as needed */
+    letter-spacing: .05em; /* Adjust as needed */
     animation: 
       typing 1s steps(40, end),
       blink-caret .75s step-end infinite;
@@ -41,4 +40,12 @@
   @keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: black; }
+  }
+
+  .header-link-text {
+    color: black;
+  }
+
+  .header-link-text:hover {
+    font-weight: bold;
   }

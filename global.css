@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Mondwest';
+    src: url(./static/fonts/PPMondwest-Regular.otf) format("opentype");
+  }
+
+@font-face {
+    font-family: 'Supply Mono';
+    src: url(./static/fonts/PPSupplyMono-Regular.otf) format("opentype");
+  }
