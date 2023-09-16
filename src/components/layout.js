@@ -12,6 +12,18 @@ import {
     footerBar,
   } from './layout.module.css'
 
+  const sitemap = [
+    {
+      name: "Home",
+      route: "/",
+    },
+    {
+      name: "About",
+      route: "/about",
+    },
+    // blog, work, food
+  ]
+
 const Layout = ({ pageTitle, children }) => {
   const data = useStaticQuery(graphql`
     query {
@@ -57,16 +69,18 @@ const Layout = ({ pageTitle, children }) => {
             <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
               <div style={{display: "flex", flexDirection: "column", textAlign: "left", lineHeight: 0.1+"em", fontFamily: "Supply Mono", fontSize: 0.875+"em"}}>
                 <p>SITEMAP:</p>
-                <p>
-                  <Link to="/" className={navLinkText}>
-                    Home
-                  </Link>
-                </p>
-                <p>
-                  <Link to="/about" className={navLinkText}>
-                    About
-                  </Link>
-                </p>
+                {sitemap.map(page => (
+                  <li key={page.name} style={{ listStyle: "none" }}>
+                    <p>
+                      <Link 
+                        to={page.route} 
+                        className={navLinkText}
+                      >
+                        {page.name}
+                      </Link>
+                    </p>
+                  </li>
+                ))}
               </div>
               <div style={{display: "flex", flexDirection: "column", textAlign: "right", lineHeight: 0.1+"em", fontFamily: "Supply Mono", fontSize: 0.875+"em"}}>
                 <p>SOCIALS:</p>
