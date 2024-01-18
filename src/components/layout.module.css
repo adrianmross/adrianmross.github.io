@@ -17,9 +17,9 @@ top: 0; */
 .nav-link-item {
 /* padding-right: 2rem; */
 }
-.nav-link-text {
+/* .nav-link-text {
     color: black;
-  }
+  } */
 
 .nav-link-text:hover {
     font-weight: bold;
@@ -40,8 +40,9 @@ top: 0; */
 }
 
 .footer-bar {
-    background-color: #f2f2f2;
-    color: #444444;
+    background-color: rgba(0, 0, 0, 0.4);
+    filter: brightness(80%);
+    /* color: #444444; */
     height: 50px;
   }
 

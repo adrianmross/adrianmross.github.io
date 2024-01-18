@@ -1,0 +1,105 @@
+:root {
+    --noItems: 4;
+    --itemsWidth: 520px;
+    --gap: 15px;
+    --marqueeSpeed: 20s;
+    --containerBG: #233d4d;
+    --fill1: #fe7f2d;
+    --fill2: #fcca46;
+    --fill3: #a1c181;
+    --fill4: #619b8a;
+}
+
+.body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    background: #151515;
+    overflow: hidden;
+}
+
+grid-container {
+    width: calc(calc(var(--noItems) * calc(var(--itemsWidth) + var(--gap))));
+
+    border: var(--gap) solid var(--containerBG);
+    overflow: hidden;
+    background: var(--containerBG);
+    border-radius: var(--gap);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: var(--gap);
+    width: 200%;
+    /* ❗️as having 2 sets of items per row❗️*/
+}
+
+.row {
+    display: flex;
+    overflow: hidden;
+}
+
+.box {
+    width: var(--itemsWidth);
+    height: 300px;
+    margin-right: var(--gap);
+    border-radius: var(--gap);
+    padding: 10px;
+}
+
+/* Colors */
+.fill1 {
+    background-color: var(--fill1);
+}
+
+.fill2 {
+    background-color: var(--fill2);
+}
+
+.fill3 {
+    background-color: var(--fill3);
+}
+
+.fill4 {
+    background-color: var(--fill4);
+}
+
+/* Forward animation */
+.forward {
+    animation: forward-marquee var(--marqueeSpeed) linear infinite;
+}
+
+/* Backward animation */
+.backward {
+    animation: backward-marquee var(--marqueeSpeed) linear infinite;
+}
+
+.h1 {
+    font-family: "Mondwest";
+    font-weight: "semi-bold";
+    font-size: 2em;
+}
+
+@keyframes forward-marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes backward-marquee {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
