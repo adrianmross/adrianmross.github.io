@@ -4,6 +4,7 @@ import { Link, StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import Seo from '../components/seo'
 import Hero from "../components/Hero";
+import Althero from "../components/Althero";
 import ScrollBoxes from "../components/ScrollBoxes";
 import '../../global.css'
 // import { Box, Text } from "@chakra-ui/core";
@@ -52,7 +53,7 @@ const IndexPage = () => {
               <span style={{ fontSize: 3 + "em" }}>drian M. Ross</span>
             </header>
             <p style={{ fontFamily: "Supply Mono", fontSize: 0.875 + "em" }}>
-              An Aspiring Polymath
+              Developer&nbsp;&nbsp;Designer&nbsp;&nbsp;Doer
             </p>
           </div>
           {/* <div style={{display: "flex", flexDirection: "column", textAlign: "right", lineHeight: 0.1+"em", fontFamily: "Supply Mono", fontSize: 0.875+"em"}}>
@@ -69,9 +70,9 @@ const IndexPage = () => {
           </div> */}
         </div>
       </div>
-      <Hero />
+      <Althero />
       <br /> <br /> <br /> <br />
-      <section id="recent-happenings" style={{ background: "#151515" }}>
+      {/* <section id="recent-happenings" style={{ background: "#151515" }}>
         <h2
           style={{
             color: "white",
@@ -93,7 +94,7 @@ const IndexPage = () => {
           box7Content="Content for Box 7"
           box8Content="Content for Box 8"
         />
-      </section>
+      </section> */}
       <Layout pageTitle="Home Page">{/* <p> Homepage </p> */}</Layout>
     </>
   );
