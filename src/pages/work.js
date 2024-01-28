@@ -3,7 +3,6 @@ import * as React from 'react'
 import Layout from '../components/layout'
 import { Link, StaticImage } from "gatsby-plugin-image";
 import Seo from '../components/seo'
-import HomeButton from '../components/HomeButton';
 import { PageEndProvider } from "../components/PageEndContext";
 import EndOfPageDetector from "../components/EndOfPageDetector";
 import ScrollDownMessage from "../components/ScrollDownMessage";
@@ -11,31 +10,12 @@ import "../../global.css";
 
 // Section 2: Import Styling
 import {
-  container,
-  profileImage,
-  typewriterText,
-  typewriterContainer,
-  headerLinkText,
   extendedBackgroundSection,
   coolBeans,
-} from "./about.module.css";
-
-// Section 3: Helper Components
-const Headshot = () => {
-  return (
-    <div className={container}>
-      <StaticImage className={profileImage}
-        alt="Self portrait"
-        src="../images/profile.jpeg"
-        objectFit='cover'
-        // objectPosition='100% 100%'
-      />
-    </div>
-  )
-}
+} from "./work.module.css";
 
 // Step 2: Define your component
-const AboutPage = () => {
+const WorkPage = () => {
   return (
     <>
       <PageEndProvider>
@@ -43,15 +23,8 @@ const AboutPage = () => {
         <div style={{ padding: 1 + "em", paddingTop: 2 + "em" }}>
           <hr style={{ border: 2 + "px solid" }}></hr>
         </div>
-        <Layout pageTitle="About Me">
-          <HomeButton />
+        <Layout pageTitle="My Work">
           <br /> <br /> <br /> <br />
-          <Headshot />
-          <br /> <br />
-          <div className={typewriterContainer}>
-            <p className={typewriterText}>Hi 👋 I'm Adrian!</p>
-          </div>
-          <br />
           <p
             style={{
               fontStyle: "italic",
@@ -119,7 +92,6 @@ const AboutPage = () => {
               </button>
             </div>
           </section>
-          <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
           <EndOfPageDetector />
           {/* <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> */}
         </Layout>
@@ -128,7 +100,7 @@ const AboutPage = () => {
   );
 }
 
-export const Head = () => <Seo title="About Me" />
+export const Head = () => <Seo title="My Work" />
 
 // Step 3: Export your component
-export default AboutPage
+export default WorkPage
