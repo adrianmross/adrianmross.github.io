@@ -1,0 +1,73 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn .25s ease-out forwards;
+}
+
+.fadeOut {
+    animation: fadeOut .25s ease-out forwards;
+}
+
+.scrolldown-wrapper {
+    left: 10%;
+    position: fixed;
+    text-align: center;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+}
+
+.scrolldown {
+    border: 2px solid #000000;
+    border-radius: 30px;
+    height: 46px;
+    margin: 0 auto 8px;
+    text-align: center;
+    width: 30px;
+}
+
+.scrolldown-p1,
+.scrolldown-p2 {
+    animation-duration: 1.5s;
+    animation-name: scrolldown;
+    animation-iteration-count: infinite;
+    fill: #000000;
+}
+
+.scrolldown-p2 {
+    animation-delay: .75s;
+}
+
+@keyframes scrolldown {
+    0% {
+        opacity: 0;
+        transform: translate(0, -8px);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(0, 8px);
+    }
+}

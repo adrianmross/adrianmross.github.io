@@ -9,6 +9,7 @@ import Althero from "../components/Althero";
 import { PageEndProvider } from "../components/PageEndContext";
 import EndOfPageDetector from "../components/EndOfPageDetector";
 import EndOfPageMessage from "../components/EndOfPageMessage";
+import ScrollDownMessage from "../components/ScrollDownMessage";
 import '../../global.css'
 // import { Box, Text } from "@chakra-ui/core";
 
@@ -58,6 +59,7 @@ const IndexPage = () => {
       </div>
       <Althero />
       <br /> <br />
+      <ScrollDownMessage />
       <EndOfPageMessage />
       <br /> <br /> <br /> <br />
       <EndOfPageDetector />
