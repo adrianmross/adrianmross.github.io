@@ -67,3 +67,25 @@ typewriter-container {
 .header-link-text:hover {
     font-weight: bold;
 }
+
+.extended-background-section {
+    background-color: rgba(0, 0, 0);
+    /* Replace with your desired color */
+    width: 100vw;
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+.extended-background-section div {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 75px;
+    margin-bottom: 75px;
+    color: white;
+    padding: 10px;
+}
+
+/* .extended-background-section h2 {
+    font-family: "times new roman";
+    font-weight: 300;
+} */

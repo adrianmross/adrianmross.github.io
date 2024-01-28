@@ -12,7 +12,8 @@ import {
   typewriterText,
   typewriterContainer,
   headerLinkText,
-} from './index.module.css'
+  extendedBackgroundSection,
+} from "./about.module.css";
 
 // Section 3: Helper Components
 const Headshot = () => {
@@ -77,7 +78,25 @@ const AboutPage = () => {
           I also enjoy &#x2615; making coffee, &#x1F3BF; skiing, &#x1F373;
           cooking, and &#x1F3B9; playing the piano.
         </p>
-        <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+        <br />
+        <section className={extendedBackgroundSection}>
+          <div>
+            <h2>Education</h2>
+            <h3>BACHELOR OF SCIENCE</h3>
+            <h4>MAJOR: Computer Science & Business</h4>
+            <h5>MINORS: Data Science & FinTech</h5>
+            <p>
+              The Computer Science & Business honors program is a special
+              program at Lehigh that is both ABET and AACSB accredited, meaning
+              it is a full computer science and full business degree. I learn
+              everything a computer science student learns, everything a
+              business major learns, and how these disciplines interact in the
+              modern world. At the time of my enrollment, only 40 students were
+              admitted to the program each year.
+            </p>
+          </div>
+        </section>
+        <br /> <br /> <br /> <br /> <br /> <br /> <br />
       </Layout>
     </>
   );
