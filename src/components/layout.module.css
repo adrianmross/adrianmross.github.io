@@ -17,9 +17,10 @@ top: 0; */
 .nav-link-item {
 /* padding-right: 2rem; */
 }
-/* .nav-link-text {
+
+.nav-link-text {
     color: black;
-  } */
+  }
 
 .nav-link-text:hover {
     font-weight: bold;
@@ -39,10 +40,17 @@ top: 0; */
     padding-top: 100px;
 }
 
+.sitemap-container {
+    padding: 1em;
+    padding-top: 2em;
+    font-family: "Supply Mono";
+    font-size: 0.875em;
+    line-height: 1.5em;
+}
+
 .footer-bar {
     background-color: rgba(0, 0, 0, 0.4);
     filter: brightness(80%);
-    /* color: #444444; */
     height: 50px;
   }
 
@@ -51,5 +59,6 @@ top: 0; */
     padding: 0;
     line-height: 50px;
     text-align: center;
-    font-family: sans-serif;
-    }
+    font-family: "Supply Mono"; 
+    font-size: 0.875em;
+  }

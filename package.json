@@ -20,6 +20,7 @@
     "gatsby": "^5.11.0",
     "gatsby-plugin-anchor-links": "^1.2.1",
     "gatsby-plugin-image": "^3.11.0",
+    "gatsby-plugin-manifest": "^5.13.1",
     "gatsby-plugin-mdx": "^5.11.0",
     "gatsby-plugin-sharp": "^5.11.0",
     "gatsby-plugin-styled-components": "^6.13.0",
