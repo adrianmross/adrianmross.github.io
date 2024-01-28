@@ -3,40 +3,26 @@ import * as React from 'react'
 import { Link, StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import Seo from '../components/seo'
-import Hero from "../components/Hero";
+// import Hero from "../components/Hero";
 import Althero from "../components/Althero";
-import ScrollBoxes from "../components/ScrollBoxes";
+// import ScrollBoxes from "../components/ScrollBoxes";
+import { PageEndProvider } from "../components/PageEndContext";
+import EndOfPageDetector from "../components/EndOfPageDetector";
+import EndOfPageMessage from "../components/EndOfPageMessage";
 import '../../global.css'
 // import { Box, Text } from "@chakra-ui/core";
 
 // Section 2: Import Styling
 import {
   container,
-  profileImage,
-  typewriterText,
-  typewriterContainer,
-  headerLinkText,
 } from './index.module.css'
 
-// Section 3: Helper Components
-const Headshot = () => {
-  return (
-    <div className={container}>
-      <StaticImage className={profileImage}
-        alt="Self portrait"
-        src="../images/profile.jpeg"
-        objectFit='cover'
-        // objectPosition='100% 100%'
-      />
-    </div>
-  )
-}
 
 // Section 4: Main Component
 const IndexPage = () => {
 
   return (
-    <>
+    <PageEndProvider>
       {/* Header */}
       <div style={{ padding: 1 + "em", paddingTop: 2 + "em" }}>
         <hr style={{ border: 2 + "px solid" }}></hr>
@@ -71,7 +57,10 @@ const IndexPage = () => {
         </div>
       </div>
       <Althero />
+      <br /> <br />
+      <EndOfPageMessage />
       <br /> <br /> <br /> <br />
+      <EndOfPageDetector />
       {/* <section id="recent-happenings" style={{ background: "#151515" }}>
         <h2
           style={{
@@ -96,7 +85,7 @@ const IndexPage = () => {
         />
       </section> */}
       <Layout pageTitle="Home Page">{/* <p> Homepage </p> */}</Layout>
-    </>
+    </PageEndProvider>
   );
 }
 
