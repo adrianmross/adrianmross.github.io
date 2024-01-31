@@ -100,14 +100,13 @@ const AboutPage = () => {
               <h4>MAJOR: Computer Science & Business 🎓 </h4>
               <h5>MINORS: Data Science & FinTech</h5>
               <p>
-                <span style={{ fontStyle: "italic" }}>About:</span> The Computer
-                Science & Business honors program is a special program at Lehigh
-                that is both ABET and AACSB accredited, meaning it is a full
-                computer science and full business degree. I learn everything a
-                computer science student learns, everything a business major
-                learns, and how these disciplines interact in the modern world.
-                At the time of my enrollment, only 40 students were admitted to
-                the program each year.
+                The Computer Science & Business honors program is a special
+                program at Lehigh that is both ABET and AACSB accredited,
+                meaning it is a full computer science and full business degree.
+                I learn everything a computer science student learns, everything
+                a business major learns, and how these disciplines interact in
+                the modern world. At the time of my enrollment, only 40 students
+                were admitted to the program each year.
               </p>
               <button
                 className={coolBeans}
@@ -118,6 +117,27 @@ const AboutPage = () => {
                 Résumé
               </button>
             </div>
+          </section>
+          <br /> <br />
+          <section>
+            {/* skills */}
+            <h2>🧠 Skills</h2>
+            <h3>Programming Languages</h3>
+            <p>
+              <strong>Proficient:</strong> Python, Java, TypeScript/JavaScript,
+              C/C++
+            </p>
+            <p>
+              <strong>Familiar:</strong> HTML/CSS, Rust, GoLang, C#, R, Solidity, LaTeX
+            </p>
+            <h3>SWE Tools</h3>
+            <p>
+              <strong>Proficient:</strong> SQL, React, Node.js, Gatsby,
+              Express.js, MongoDB, PostgreSQL, Docker, Kubernetes
+            </p>
+            <p>
+              <strong>Familiar:</strong> GraphQL, Firebase, AWS, Azure
+            </p>
           </section>
           <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
           <EndOfPageDetector />

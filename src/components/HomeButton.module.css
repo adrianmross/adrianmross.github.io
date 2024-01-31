@@ -36,7 +36,7 @@
     font-weight: 550;
     font-family: Arial, sans-serif;
     text-decoration: none;
-    color: #000;
+    color: red;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
     transform-origin: right center;
