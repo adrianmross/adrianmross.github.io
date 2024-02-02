@@ -77,7 +77,7 @@ const Layout = ({ pageTitle, children }) => {
           {children}
         </main>
       </div>
-      <sitemap className={sitemapContainer}>
+      <div className={sitemapContainer}>
           <hr style={{ border: "1px solid" }}/>
           <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
@@ -97,15 +97,15 @@ const Layout = ({ pageTitle, children }) => {
               <ul style={{ listStyle: "none", paddingInlineStart: 0 }}>
                 {social.map(page => (
                   <li key={page.name}>
-                    <Link to={page.url} className={navLinkText}>
+                    <a href={page.url} className={navLinkText}>
                       {page.name}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-      </sitemap>
+      </div>
       <footer className={footerBar}>
         <p>Adrian Michael Ross &#169; 2023</p>
       </footer>
