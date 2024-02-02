@@ -12,7 +12,7 @@
     height: 100%;
 }
 
-typewriter-container {
+.typewriter-container {
     display: flex;
     justify-content: center;
     align-items: center;

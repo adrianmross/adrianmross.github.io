@@ -1,12 +1,12 @@
 // Step 1: Import React
 import * as React from 'react'
 import Layout from '../components/layout'
-import { Link, StaticImage } from "gatsby-plugin-image";
+import { StaticImage } from "gatsby-plugin-image";
 import Seo from '../components/seo'
 import HomeButton from '../components/HomeButton';
-import { PageEndProvider } from "../components/PageEndContext";
-import EndOfPageDetector from "../components/EndOfPageDetector";
-import ScrollDownMessage from "../components/ScrollDownMessage";
+import { PageEndProvider } from "../components/PageMessages/PageEndContext";
+import EndOfPageDetector from "../components/PageMessages/EndOfPageDetector";
+import ScrollDownMessage from "../components/PageMessages/ScrollDownMessage";
 import "../../global.css";
 
 // Section 2: Import Styling
@@ -28,7 +28,6 @@ const Headshot = () => {
         alt="Self portrait"
         src="../images/profile.jpeg"
         objectFit='cover'
-        // objectPosition='100% 100%'
       />
     </div>
   )

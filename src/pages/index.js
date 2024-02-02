@@ -1,17 +1,15 @@
 // Section 1: Import Dependencies
 import * as React from 'react'
-import { Link, StaticImage } from 'gatsby-plugin-image'
-import Layout from '../components/layout'
-import Seo from '../components/seo'
-// import Hero from "../components/Hero";
-import Althero from "../components/Althero";
-// import ScrollBoxes from "../components/ScrollBoxes";
-import { PageEndProvider } from "../components/PageEndContext";
-import EndOfPageDetector from "../components/EndOfPageDetector";
-import EndOfPageMessage from "../components/EndOfPageMessage";
-import ScrollDownMessage from "../components/ScrollDownMessage";
+import { 
+  Layout, 
+  Seo, 
+  Althero, 
+  ScrollDownMessage, 
+  EndOfPageMessage, 
+  EndOfPageDetector, 
+  PageEndProvider 
+} from "../components";
 import '../../global.css'
-// import { Box, Text } from "@chakra-ui/core";
 
 // Section 2: Import Styling
 import {
