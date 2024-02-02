@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { usePageEnd } from "./PageEndContext";
 import {
-  message, 
   fadeIn, 
   fadeOut,
   scrolldownWrapper,
   scrolldown,
   scrolldownP1,
   scrolldownP2,
-  mouseScroll,
-  mouse,
-  wheel,
-  mScrollArrows,
-  unu,
-  doi,
-  trei,
 } from "./ScrollDownMessage.module.css";
 
 const ScrollDownMessage = () => {
