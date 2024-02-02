@@ -33,6 +33,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `${__dirname}/src/data/`,
+      },
+    },
+    {
       resolve: "gatsby-plugin-mdx",
       options: {
         extensions: [".mdx"],
@@ -41,5 +48,6 @@ module.exports = {
         ],
       },
     },
+    "gatsby-transformer-json",
   ],
 };

@@ -1,0 +1,24 @@
+.timeline-event {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.timeline-event:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-content {
+    border-left: 2px solid #333;
+    padding-left: 20px;
+    margin-left: 20px;
+}
+
+.timeline-content h3 {
+    margin-top: 0;
+}
+
+.timeline-content time {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
