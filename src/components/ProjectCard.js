@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Link } from "gatsby";
 import {
   projectCard,
-  hovered,
+  // hovered,
   coverImage,
-  content,
+  // content,
   hoverContent, // Change this class name to hover-content
-  hoverButton,
 } from "./ProjectCard.module.css";
 
 const ProjectCard = ({ project }) => {
@@ -28,10 +27,11 @@ const handleMouseEnter = () => {
 
   return (
     <div
-      className={`${projectCard} ${isHovered ? hovered : ""}`}
+      className={projectCard}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
+      {/* className={`${projectCard} ${isHovered ? hovered : ""}`}*/}
       <div className={coverImage}>
         <img src={project.coverImage} alt={project.title} />
         <div className={`${hoverContent} ${isHovered ? "visible" : ""}`}>
@@ -39,7 +39,7 @@ const handleMouseEnter = () => {
           <h2>{project.title}</h2>
           <p>{project.description}</p>
           <Link to={`/projects/${project.slug}`}>
-            <button className={hoverButton}>View Project</button>
+            <button>View Project</button>
           </Link>
         </div>
       </div>

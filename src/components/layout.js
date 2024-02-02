@@ -22,8 +22,20 @@ const sitemap = [
     name: "About",
     route: "/about",
   },
+  {
+    name: "Work",
+    route: "/work",
+  },
+  // {
+  //   name: "Blog",
+  //   route: "/blog",
+  // },
+  {
+    name: "Contact",
+    route: "/contact",
+  }
   // blog, work, food
-]
+];
 
 const social = [
   {

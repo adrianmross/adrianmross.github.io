@@ -13,7 +13,7 @@ const ProjectPost = ({ data, children }) => {
   );
 };
 
-export const query = graphql`
+export const query = useStaticQuery(graphql`
   query ($id: String) {
     mdx(id: { eq: $id }) {
       frontmatter {
@@ -22,7 +22,7 @@ export const query = graphql`
       }
     }
   }
-`;
+`);
 
 export const Head = ({ data }) => <Seo title={data.mdx.frontmatter.title} />;
 
