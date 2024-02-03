@@ -43,7 +43,7 @@ const AboutPage = () => {
           <hr style={{ border: 2 + "px solid" }}></hr>
         </div>
         <Layout pageTitle="About Me">
-          <HomeButton />
+          <HomeButton page="about" />
           <br /> <br /> <br /> <br />
           <Headshot />
           <br /> <br />
@@ -127,7 +127,8 @@ const AboutPage = () => {
               C/C++
             </p>
             <p>
-              <strong>Familiar:</strong> HTML/CSS, Rust, GoLang, C#, R, Solidity, LaTeX
+              <strong>Familiar:</strong> HTML/CSS, Rust, GoLang, C#, R,
+              Solidity, LaTeX
             </p>
             <h3>SWE Tools</h3>
             <p>

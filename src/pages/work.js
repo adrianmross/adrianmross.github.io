@@ -4,6 +4,7 @@ import { graphql } from "gatsby";
 import {
   Layout,
   Seo,
+  HomeButton,
   ScrollDownMessage,
   EndOfPageDetector,
   PageEndProvider,
@@ -15,6 +16,7 @@ import "../../global.css";
 import {
   extendedBackgroundSection,
   coolBeans,
+  pageHeading,
 } from "./work.module.css";
 
 // Step 2: Define your component
@@ -29,7 +31,12 @@ const WorkPage = ({ data }) => {
           <hr style={{ border: 2 + "px solid" }}></hr>
         </div>
         <Layout pageTitle="My Work">
-          <br /> <br /> <br /> <br />
+          <br /> <br />
+          <h1 className={pageHeading}>
+            Professional Journey: Chronicles of My Career
+          </h1>
+          <br /> <br />
+          <HomeButton page="work"/>
           <p
             style={{
               fontStyle: "italic",
@@ -41,10 +48,8 @@ const WorkPage = ({ data }) => {
             Bank of KC, as well as a global analyst at Lockton Companies! Before
             that I made coffee ☕️.
           </p>
-          <br />
           <br /> <br />
           <ScrollDownMessage />
-          <br /> <br />
           <section className={extendedBackgroundSection}>
             <div>
               <h2>Experience</h2>

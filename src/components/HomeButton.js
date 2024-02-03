@@ -5,10 +5,11 @@ import {
   text,
 } from "./HomeButton.module.css";
 
-const HomeButton = () => {
+const HomeButton = ({page}) => {
   const [phrase, setPhrase] = useState("adrianmross");
 
-  const handleMouseEnter = () => setPhrase("adrianmross.home");
+  // set phrase to "adrian." + {page} on mouse enter
+  const handleMouseEnter = () => setPhrase("adrian." + page);
   const handleMouseLeave = () => setPhrase("adrianmross");
 
   return (

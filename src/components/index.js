@@ -8,6 +8,9 @@ export { default as Layout } from './layout';
 // SEO
 export { default as Seo } from './seo';
 
+// HomeButton
+export { default as HomeButton } from './HomeButton';
+
 // Timeline
 export { Timeline } from './Timeline';
 
