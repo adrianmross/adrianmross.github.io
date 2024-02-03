@@ -1,23 +1,23 @@
 [
   {
-    "title": "Cyberinfrastructure Engineer Intern",
-    "company": "Federal Reserve Bank of Kansas City",
-    "role": "Center for the Advancement of Data and Research in Economics",
-    "period": "June 2023 - August 2023",
-    "description": "I worked with the CADRE team to develop and maintain the cyberinfastructure that supports the data and research needs of the Federal Reserve System."
+    "title": "Teaching Assistant",
+    "company": "Lehigh University Departent of Computer Science and Engineering",
+    "role": "Discrete Algorithms, Databases, Blockchain Systems",
+    "period": "August 2022 - Present",
+    "description": "Host office hours, provide feedback, & grade for courses. Lead review sessions, liaison between graders & professors, distribute workload, and grade larger assignments."
   },
   {
-      "title": "Software Engineer Intern",
-      "company": "Cerner Corporation",
-      "role": "Population Health",
+      "title": "Global Analytics Intern",
+      "company": "Lockton Companies",
+      "role": "Lockton Centeral",
       "period": "June 2022 - August 2022",
-      "description": "Work description here..."
+      "description": "Built a prototype time-series revenue forecasting model pipeline in AzureML for PowerBI, achieving above 95% accuracy in end-of-day revenue predictions & handling nearly 3000 multi-sourced transactions daily. Optimized market data sourcing & scrubbing processes for higher QA with Azure Synapse, C++, and Python."
   },
   {
-      "title": "Software Engineer Intern",
-      "company": "Cerner Corporation",
-      "role": "Population Health",
-      "period": "June 2021 - August 2021",
-      "description": "Work description here..."
+      "title": "Barista",
+      "company": "Starbucks Coffee Company",
+      "role": "Shawnee Mission and Quivira",
+      "period": "August 2019 - August 2022",
+      "description": "Provided customer service, crafted beverages, maintained store quality, & guaranteed customer satisfaction. Certified in consumer hygiene, stocking, and merchandising & experienced in handling high-intensity situations."
   }
 ]
