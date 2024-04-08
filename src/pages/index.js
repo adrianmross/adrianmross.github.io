@@ -1,15 +1,15 @@
 // Section 1: Import Dependencies
 import * as React from 'react'
-import { 
-  Layout, 
-  Seo, 
-  Althero, 
-  ScrollDownMessage, 
-  EndOfPageMessage, 
-  EndOfPageDetector, 
-  PageEndProvider 
+import {
+  Layout,
+  Seo,
+  Althero,
+  NewProjectBanner,
+  ScrollDownMessage,
+  EndOfPageMessage,
+  EndOfPageDetector,
+  PageEndProvider,
 } from "../components";
-import '../../global.css'
 
 // Section 2: Import Styling
 import {
@@ -22,6 +22,9 @@ const IndexPage = () => {
 
   return (
     <PageEndProvider>
+
+      <NewProjectBanner />
+
       {/* Header */}
       <div style={{ padding: 1 + "em", paddingTop: 2 + "em" }}>
         <hr style={{ border: 2 + "px solid" }}></hr>

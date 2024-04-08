@@ -7,9 +7,10 @@ module.exports = {
     siteUrl: `https://adrianmross.github.io/`,
   },
   plugins: [
+    `gatsby-plugin-postcss`,
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
-    "gatsby-plugin-mdx",
+    // "gatsby-plugin-mdx",
     "gatsby-transformer-sharp",
     "gatsby-plugin-anchor-links",
     {
@@ -22,21 +23,21 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `projects`,
-        path: `${__dirname}/src/projects/`,
+        path: `${__dirname}/content/projects/`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `blogs`,
-        path: `${__dirname}/src/blogs/`,
+        path: `${__dirname}/content/blogs/`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
-        path: `${__dirname}/src/data/`,
+        path: `${__dirname}/content/data/`,
       },
     },
     {
@@ -45,9 +46,29 @@ module.exports = {
         extensions: [".mdx"],
         gatsbyRemarkPlugins: [
           // You can add any necessary plugins here for processing MDX content.
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
         ],
       },
     },
+    // {
+    //   resolve: `gatsby-transformer-remark`,
+    //   options: {
+    //     plugins: [
+    //       {
+    //         resolve: `gatsby-remark-images`,
+    //         options: {
+    //           maxWidth: 800,
+    //         },
+    //       },
+    //     ],
+    //   },
+    // },
+    // `gatsby-plugin-mdx`,
     "gatsby-transformer-json",
   ],
 };

@@ -4,7 +4,7 @@ import { graphql } from "gatsby";
 import ProjectCard from "../components/ProjectCard";
 
 const ProjectsPage = ({ data }) => {
-  const projects = data.allMdx.nodes;
+  const projects = data.allFile.nodes.map((node) => node.childMdx);
 
   return (
     <div>
@@ -19,15 +19,17 @@ const ProjectsPage = ({ data }) => {
 };
 
 export const query = graphql`
-  query {
-    allMdx {
+  query GetProjects {
+    allFile(filter: { sourceInstanceName: { eq: "projects" } }) {
       nodes {
-        id
-        frontmatter {
-          title
-          description
-          coverImage
-          slug
+        childMdx {
+          id
+          frontmatter {
+            title
+            description
+            coverImage
+            slug
+          }
         }
       }
     }

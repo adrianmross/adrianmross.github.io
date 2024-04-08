@@ -2,33 +2,50 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-const ProjectsPage = ({ data }) => {
-  const projects = data.allMdx.nodes;
+const BlogsPage = () => {
 
   return (
-    <div>
-      <h1>Projects</h1>
-      <div className="project-cards">
-
-      </div>
-    </div>
-  );
+    <h1>Blogs</h1>
+  )
 };
 
-export const query = graphql`
-  query {
-    allMdx {
-      nodes {
-        id
-        frontmatter {
-          title
-          description
-          coverImage
-          slug
-        }
-      }
-    }
-  }
-`;
+export default BlogsPage;
 
-export default ProjectsPage;
+// const BlogsPage = ({ data }) => {
+//   const blogs = data.allFile.nodes.map((node) => node.childMdx);
+
+//   return (
+//     <div>
+//       <h1>Blogs</h1>
+//       <div className="project-cards">
+//         {blogs.map((blog) => (
+//           <div key={blog.id}>
+//             <h2>{blog.frontmatter.title}</h2>
+//             <p>{blog.frontmatter.description}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export const query = graphql`
+//   query GetBlogs {
+//     allFile(filter: { sourceInstanceName: { eq: "blogs" } }) {
+//       nodes {
+//         childMdx {
+//           id
+//           frontmatter {
+//             title
+//             description
+//             coverImage
+//             slug
+//             date
+//           }
+//         }
+//       }
+//     }
+//   }
+// `;
+
+// export default BlogsPage;
