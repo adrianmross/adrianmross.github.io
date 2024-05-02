@@ -13,82 +13,95 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const blogPostTemplate = path.resolve(`src/templates/blog-post.js`);
   const projectPostTemplate = path.resolve(`src/templates/project-post.js`);
 
-  try {
-    const result = await graphql(`
-      query {
-        allMyBlogPosts: allMdx(
-          filter: { internal: { contentFilePath: { regex: "/blogs/" } } }
-        ) {
-          nodes {
-            id
-            frontmatter {
-              slug
-              title
-            }
-            internal {
-              contentFilePath
-            }
+  // Query for blog posts
+  const blogPostsResult = await graphql(`
+    {
+      allMdx(filter: { internal: { contentFilePath: { regex: "/blogs/" } } }) {
+        nodes {
+          id
+          frontmatter {
+            slug
+            title
           }
-        }
-        allMyProjectPosts: allMdx(
-          filter: { internal: { contentFilePath: { regex: "/projects/" } } }
-        ) {
-          nodes {
-            id
-            frontmatter {
-              slug
-              title
-            }
-            internal {
-              contentFilePath
-            }
+          internal {
+            contentFilePath
           }
         }
       }
-    `);
-
-    // Error handling
-    if (result.errors) {
-      reporter.error("There was an issue fetching your posts", result.errors);
-      return;
     }
+  `);
 
-    // Create blog post pages
-    const blogPosts = result.data.allMyBlogPosts.nodes;
-    if (blogPosts.length === 0) {
-      reporter.warn("There are no blog posts!");
-    } else {
-      blogPosts.forEach((node) => {
-        createPage({
-          path: `blogs/${node.frontmatter.slug}`,
-          component: `${blogPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-          context: {
-            id: node.id,
-          },
-        });
-      });
-    }
-
-    // Create project post pages
-    const projectPosts = result.data.allMyProjectPosts.nodes;
-    if (projectPosts.length === 0) {
-      reporter.warn("There are no project posts!");
-    } else {
-      projectPosts.forEach((node) => {
-        createPage({
-          path: `projects/${node.frontmatter.slug}`,
-          component: `${projectPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-          context: {
-            id: node.id,
-          },
-        });
-      });
-    }
-
-    // Log out the number of posts
-    reporter.info(`Number of Blog Posts: ${blogPosts.length}`);
-    reporter.info(`Number of Project Posts: ${projectPosts.length}`);
-  } catch (error) {
-    reporter.error("Error creating pages", error);
+  // Error handling for blog posts
+  if (blogPostsResult.errors) {
+    reporter.error(
+      "There was an issue fetching your blog posts",
+      blogPostsResult.errors
+    );
+    return;
   }
+
+  // Create blog post pages
+  const blogPosts = blogPostsResult.data.allMdx.nodes;
+  if (blogPosts.length === 0) {
+    reporter.warn("There are no blog posts!");
+  } else {
+    blogPosts.forEach((node) => {
+      createPage({
+        path: `blogs/${node.frontmatter.slug}`,
+        component: `${blogPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+        context: {
+          id: node.id,
+        },
+      });
+    });
+  }
+
+  // Query for project posts
+  const projectPostsResult = await graphql(`
+    {
+      allMdx(
+        filter: { internal: { contentFilePath: { regex: "/projects/" } } }
+      ) {
+        nodes {
+          id
+          frontmatter {
+            slug
+            title
+          }
+          internal {
+            contentFilePath
+          }
+        }
+      }
+    }
+  `);
+
+  // Error handling for project posts
+  if (projectPostsResult.errors) {
+    reporter.error(
+      "There was an issue fetching your project posts",
+      projectPostsResult.errors
+    );
+    return;
+  }
+
+  // Create project post pages
+  const projectPosts = projectPostsResult.data.allMdx.nodes;
+  if (projectPosts.length === 0) {
+    reporter.warn("There are no project posts!");
+  } else {
+    projectPosts.forEach((node) => {
+      createPage({
+        path: `projects/${node.frontmatter.slug}`,
+        component: `${projectPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+        context: {
+          id: node.id,
+        },
+      });
+    });
+  }
+
+  // Log out the number of posts
+  reporter.info(`Number of Blog Posts: ${blogPosts.length}`);
+  reporter.info(`Number of Project Posts: ${projectPosts.length}`);
 };
