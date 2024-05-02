@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { MDXProvider } from "@mdx-js/react";
 import Seo from "../components/seo";
+require(`katex/dist/katex.min.css`);
 
 const ProjectPost = ({ data, children }) => {
   return (

@@ -1,6 +1,6 @@
 // In your Gatsby page (e.g., src/pages/projects.js)
 import React from "react";
-import { graphql } from "gatsby";
+// import { graphql } from "gatsby";
 
 const BlogsPage = () => {
 

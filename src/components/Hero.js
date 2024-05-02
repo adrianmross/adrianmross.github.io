@@ -1,7 +1,6 @@
 // src/components/Hero.js
 
 import React from "react";
-import { Link } from "gatsby";
 import styled from "styled-components";
 import { AnchorLink } from "gatsby-plugin-anchor-links";
 import heroImage from "../images/hero.png";

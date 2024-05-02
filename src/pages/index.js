@@ -4,7 +4,6 @@ import {
   Layout,
   Seo,
   Althero,
-  NewProjectBanner,
   ScrollDownMessage,
   EndOfPageMessage,
   EndOfPageDetector,
@@ -12,9 +11,9 @@ import {
 } from "../components";
 
 // Section 2: Import Styling
-import {
-  container,
-} from './index.module.css'
+// import {
+//   container,
+// } from './index.module.css'
 
 
 // Section 4: Main Component
@@ -22,8 +21,6 @@ const IndexPage = () => {
 
   return (
     <PageEndProvider>
-
-      <NewProjectBanner />
 
       {/* Header */}
       <div style={{ padding: 1 + "em", paddingTop: 2 + "em" }}>

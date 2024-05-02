@@ -20,7 +20,12 @@ const ProjectsPage = ({ data }) => {
 
 export const query = graphql`
   query GetProjects {
-    allFile(filter: { sourceInstanceName: { eq: "projects" } }) {
+    allFile(
+      filter: {
+        sourceInstanceName: { eq: "projects" }
+        childMdx: { id: { ne: null } }
+      }
+    ) {
       nodes {
         childMdx {
           id

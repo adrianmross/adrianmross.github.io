@@ -1,6 +1,6 @@
 // Step 1: Import React
 import * as React from 'react'
-import { graphql } from "gatsby";
+import { Link, graphql } from "gatsby";
 import {
   Layout,
   Seo,
@@ -36,7 +36,7 @@ const WorkPage = ({ data }) => {
             Professional Journey: Chronicles of My Career
           </h1>
           <br /> <br />
-          <HomeButton page="work"/>
+          <HomeButton page="work" />
           <p
             style={{
               fontStyle: "italic",
@@ -48,6 +48,18 @@ const WorkPage = ({ data }) => {
             Bank of KC, as well as a global analyst at Lockton Companies! Before
             that I made coffee ☕️.
           </p>
+          <br /> <br />
+          <p>
+            Check out recent projects I've worked on in my FIN 377: Data Science in Finance course!
+          </p>
+          <ul>
+            <li>
+              <Link to="/projects/sp500-cross-sectional-analysis-10ks-stock-prices">FIN377 Midterm: S&P 500 Cross-Sectional Analysis</Link>
+            </li>
+            <li>
+              <a href="https://github.com/adrianmross/congress_trades_dashboard">FIN377 Final: Congress Trades Dashboard</a>
+            </li>
+          </ul>
           <br /> <br />
           <ScrollDownMessage />
           <section className={extendedBackgroundSection}>

@@ -15,7 +15,7 @@ import {
   profileImage,
   typewriterText,
   typewriterContainer,
-  headerLinkText,
+  // headerLinkText,
   extendedBackgroundSection,
   coolBeans,
 } from "./about.module.css";
@@ -26,7 +26,7 @@ const Headshot = () => {
     <div className={container}>
       <StaticImage className={profileImage}
         alt="Self portrait"
-        src="../images/profile.jpeg"
+        src={"../images/profile.jpeg"}
         objectFit='cover'
       />
     </div>

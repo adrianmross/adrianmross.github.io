@@ -1,0 +1,427 @@
+---
+title: FIN377 Midterm Project
+description: Cross-sectional Analysis of SP500 Companies, 10-K Filings and Stock Prices.
+coverImage: /images/project1.png
+slug: sp500-cross-sectional-analysis-10ks-stock-prices
+date: 2024-02-28
+---
+
+# Midterm Project: Cross-sectional Analysis of SP500 Companies, 10-K Filings and Stock Prices
+
+## Inputs
+
+- SP500 companies list from [Wikipedia](https://en.wikipedia.org/wiki/List_of_S%26P_500_companies)
+- [CCM data: 2021_ccm_cleaned](https://github.com/LeDataSciFi/data/blob/main/Firm%20Year%20Datasets%20(Compustat))
+- [Stock Returns: crsp_2022_only](https://github.com/LeDataSciFi/data/blob/main/Stock%20Returns%20(CRSP))
+- LM dictionary: [Loughran and McDonald (2011)](https://sraf.nd.edu/textual-analysis/resources/#Master%20Dictionary)
+- ML dictionaries: [article](https://www.sciencedirect.com/science/article/pii/S0304405X22002422#refdata001a)
+
+## External Libraries
+
+```bash
+!pip install pandas pandas_market_calendars numpy beautifulsoup4 tqdm aiohttp scipy sec_edgar_downloader
+```
+
+## 1. Summary
+
+This project aimed to explore whether the sentiment expressed in 10-K filings contains value-relevant information that can be linked to stock returns around the time of the filings. Specifically, we investigated whether positive or negative sentiments within these filings are associated with better or worse stock returns, employing a cross-sectional event study approach.
+
+## 2. Data Section
+
+### What's the sample?
+
+The sample starts with SP500 firms during the year of 2022. The sample is composed of 503 firms. The data was collected from Wikipedia. Of those 503 firms we were able to obtain 501 2022 10-K filings based on the CIK (Central Index Key). The two missing firms were First Republic Bank and Signature Bank, both of which went defunct the following year. The filings were collected from the SEC EDGAR database.
+
+
+```python
+import pandas as pd
+sample = pd.read_csv('outputs/analysis_sample.csv')
+```
+
+### How are the return variables built and modified?
+
+To understand this, I'll refer to the `build_sample.ipynb` content, where return variables are calculated based on stock returns over specified time periods following the filing date of a firm's financial document (10-K report). This involves formulas that calculate returns based on stock price changes:
+
+$$
+\text{Cumaltive Return}_{\text{T}} = \left( \prod_{t \in T} (1 + r_t) \right) - 1
+$$
+
+Where:
+- $T$ is the time period of interest (from a specified start date to an end date)
+- $r_t$ is the return at time $t$
+
+The time periods calculated are as follows:
+
+1. **Return on Filing Day (`return_on_filing`)**: This calculates the return of the stock on the `filing_date` itself. The start and end dates are the same, indicating that the return is calculated for just one day.
+
+2. **Return from Filing Day to T+2 (`return_t_to_t_plus_2`)**: This calculates the return of the stock from the `filing_date` (T) to two business days after the filing date (T+2). It uses `timedelta(days=2)` to add two days to the `filing_date`.
+
+3. **Return from T+3 to T+10 (`return_t_plus_3_to_t_plus_10`)**: This calculates the return of the stock from three business days after the filing date (T+3) to ten business days after the filing date (T+10). It uses `timedelta(days=3)` and `timedelta(days=10)` to define the start and end dates, respectively.
+
+### How are the sentiment variables built and modified?
+
+Refering to `sentiment_analysis.py` and `build_sample.ipynb` content, sentiment variables are constructed as follows:
+
+1. **Document Preparation**: Each document (10-K filing) is preprocessed to clean the text. This includes removing HTML tags, converting to lowercase, and stripping punctuation and extra whitespace, as outlined in the `build_sample.ipynb`.
+
+2. **Word Counting**: The cleaned text is split into words, and the total number of words (`doc_length`) and the number of unique words (`unique_words`) are calculated.
+
+3. **Sentiment Scoring**: For each sentiment category (e.g., positive, negative), a regular expression pattern is used to match words in the document that belong to that category, based on predefined sentiment dictionaries. The sentiment_score function counts the number of matches and divides this by the document length to calculate a sentiment frequency.
+
+4. **Topic Sentiment Scoring**: The sentiment scoring is done for each topic (positive, negative, topic) based on the words in the document that match the sentiment dictionaries and its relativeness to a matched topic keyword. The sentiment frequencies are calculated for each topic.
+
+5. **Aggregation**: The sentiment frequencies for each category are stored in a results table, which also accounts for the size of the document through normalization (dividing by `doc_length`), which helps in comparing sentiment across documents of different lengths.
+
+### Sentiment Dictionaries
+
+The specific number of words in the "LM" and "ML" positive and negative dictionaries used in the sentiment analysis are as follows:
+
+- LM positive words: 354
+- LM negative words: 2355
+- ML positive words: 75
+- ML negative words: 94
+
+The `near_regex` function constructs regular expression to find occurences of words and even occurrences of words near a topic keyword. This is used to match sentiment words that are close to a topic keyword, which helps in identifying sentiment related to a specific topic.
+
+- `partial`: The parameter to control whether to look for exact matches or partial matches of a word was set to `false` as some of the words in the sentiment dictionaries and topic keywords are partial words (e.g., "good" in "goodwill").
+- `max_words_between`: the parameter specifying the maximum allowable distance (in words) between a sentiment-laden word and the target keyword for the two to be considered "near" each other was set to `10`. This was chosen based on the context of the documents and the typical length of sentences. 
+
+### Topics
+
+I chose the following topics for sentiment analysis: 'cloud computing', 'blockchain', and 'AI'. These topics were selected based on their relevance to the technology sector and the potential impact they have on the firms' operations and performance.
+
+### Summary Statistics of Final Sample
+
+#### Return Variables
+
+1. **Return on Filing Day (`return_on_filing`):**
+- The standard deviation is 0.034, indicating variability in returns on the filing day.
+- Returns ranged from -24.28% to 16.21%, showing significant variations in market reactions.
+2. **Return from Filing Day to Two Days After (`return_t_to_t_plus_2`):**
+- The mean return is slightly positive, suggesting a modest positive trend following the filing.
+- With a standard deviation of 0.043, returns in this period also show notable variability.
+- The range of returns is wide, from -27.92% to 19.12%.
+3. **Return from Three Days After to Ten Days After Filing (`return_t_plus_3_to_t_plus_10`):**
+- The mean return is slightly negative, indicating a slight negative trend in the longer term after the filing.
+- The standard deviation is higher at 0.062, suggesting greater variability in returns over this period.
+- Returns vary widely from -54.29% to 44.94%.
+- This might suggest the markets are not as efficient in reacting to the information in the 10-K filings
+
+#### Sentiment Variables
+
+1. **Loughran-McDonald Sentiment Scores (`lm_positive`, `lm_negative`):**
+- Positive scores have a mean of 0.0062 and a low standard deviation, suggesting generally low levels of positive sentiment with little variation.
+- Negative scores have a higher mean (0.0150) and standard deviation, indicating more variability and a higher level of negative sentiment in the documents.
+2. **Another Set of Sentiment Scores (`ml_positive`, `ml_negative`):**
+- Both positive and negative scores have means around 0.022-0.024, with low standard deviations, indicating a balanced presence of both sentiments with some variability.
+3. **Topic-Specific Sentiment Scores:**
+- Topics 1, 2, and 3 have positive and negative sentiment scores with very low means (close to zero) and low standard deviations, suggesting that specific topics may have a minimal influence on the overall sentiment or are not as prominently discussed.
+
+
+```python
+returns_and_sentiment_vars = [
+    'return_on_filing', 'return_t_to_t_plus_2', 'return_t_plus_3_to_t_plus_10',
+    'lm_positive', 'lm_negative', 'ml_positive', 'ml_negative',
+    'topic1_positive', 'topic1_negative', 'topic2_positive', 'topic2_negative',
+    'topic3_positive', 'topic3_negative'
+]
+
+print(sample[returns_and_sentiment_vars].describe().transpose())
+```
+
+                                  count      mean       std       min       25%  \
+    return_on_filing              507.0  0.001222  0.034153 -0.242779 -0.015213   
+    return_t_to_t_plus_2          507.0  0.006715  0.042835 -0.279230 -0.016935   
+    return_t_plus_3_to_t_plus_10  507.0 -0.007024  0.061951 -0.542923 -0.040259   
+    lm_positive                   507.0  0.006221  0.001380  0.001516  0.005256   
+    lm_negative                   507.0  0.015049  0.003483  0.002048  0.012866   
+    ml_positive                   507.0  0.022320  0.003575  0.002813  0.020347   
+    ml_negative                   507.0  0.023692  0.003235  0.002656  0.021948   
+    topic1_positive               507.0  0.000484  0.000365  0.000031  0.000272   
+    topic1_negative               507.0  0.000614  0.000309  0.000068  0.000409   
+    topic2_positive               507.0  0.000214  0.000156  0.000000  0.000113   
+    topic2_negative               507.0  0.000321  0.000176  0.000056  0.000208   
+    topic3_positive               507.0  0.000008  0.000021  0.000000  0.000000   
+    topic3_negative               507.0  0.000005  0.000013  0.000000  0.000000   
+    
+                                       50%       75%       max  
+    return_on_filing             -0.000560  0.015636  0.162141  
+    return_t_to_t_plus_2          0.003857  0.030344  0.191172  
+    return_t_plus_3_to_t_plus_10 -0.003338  0.025201  0.449406  
+    lm_positive                   0.006239  0.007070  0.011534  
+    lm_negative                   0.014862  0.017006  0.028095  
+    ml_positive                   0.022410  0.024430  0.042329  
+    ml_negative                   0.023803  0.025524  0.035926  
+    topic1_positive               0.000375  0.000520  0.002755  
+    topic1_negative               0.000540  0.000711  0.002338  
+    topic2_positive               0.000181  0.000259  0.001492  
+    topic2_negative               0.000284  0.000377  0.001376  
+    topic3_positive               0.000000  0.000008  0.000300  
+    topic3_negative               0.000000  0.000000  0.000110  
+
+
+#### Overall Sentiment Scores
+
+When normalizing sentiment scores and aggregating them, the overall sentiment scores have average means and low standard deviations, indicating that some filings are relatively good and some are relatively bad, but the overall sentiment is not extreme in either direction.
+
+
+```python
+# Assuming 'sample' is your DataFrame
+net_sample = sample.copy()
+
+# Normalize sentiment scores for 'lm' and 'ml' in a more succinct way
+categories = ['lm', 'ml']
+for sentiment in ['positive', 'negative']:
+    cols = [f"{cat}_{sentiment}" for cat in categories]
+    normalized_cols = [f"{col}_normalized" for col in cols]
+    net_sample[normalized_cols] = (net_sample[cols] - net_sample[cols].min()) / (net_sample[cols].max() - net_sample[cols].min())
+
+# Combine LM and ML Sentiment Scores more succinctly
+net_sample['combined_positive'] = net_sample[['lm_positive_normalized', 'ml_positive_normalized']].mean(axis=1)
+net_sample['combined_negative'] = net_sample[['lm_negative_normalized', 'ml_negative_normalized']].mean(axis=1)
+
+# Calculating overall sentiment
+net_sample['overall_sentiment'] = net_sample['combined_positive'] - net_sample['combined_negative']
+
+# Computing summary statistics for these variables in a succinct manner
+combined_sentiment_summary = net_sample[['combined_positive', 'combined_negative', 'overall_sentiment']].describe().T
+
+print(combined_sentiment_summary)
+```
+
+                       count      mean       std       min       25%       50%  \
+    combined_positive  507.0  0.481684  0.096323  0.001194  0.428451  0.486744   
+    combined_negative  507.0  0.565709  0.100513  0.000000  0.508642  0.568303   
+    overall_sentiment  507.0 -0.084025  0.113722 -0.430885 -0.158156 -0.076191   
+    
+                            75%       max  
+    combined_positive  0.540049  0.812085  
+    combined_negative  0.621413  0.886128  
+    overall_sentiment -0.011580  0.343826  
+
+
+#### Supporting Data
+
+1. **Document Length (`doc_length`):**
+- Mean and median values are 78,820 and 72,355 words respectively, suggesting that the typical financial document is quite lengthy.
+- The standard deviation is 34,067, indicating significant variability in document length among companies.
+2. **Market-to-Book Ratio (`mb`):**
+- The mean (3.54) and median (2.56) indicate that, on average, companies' market values are a few times their book values, which is typical in healthy markets.
+- The standard deviation (2.85) suggests considerable variability in how much more the market values companies compared to their book values.
+- The ratio ranges from 0.88 to 14.73, showing some companies are highly valued by the market compared to their book value.
+3. **Profitability (`prof_a`):**
+- The mean (0.157) and median (0.143) profitability ratios indicate a moderate level of profitability across the sample.
+- The standard deviation (0.086) and the range from -0.099 to 0.406 suggest some companies are experiencing losses, while others are highly profitable.
+4. **Sales Growth (`sales_g`):**
+- The mean (0.274) and median (0.157) reflect positive sales growth for most companies, with the mean being higher due to some very high values.
+- The standard deviation is high (0.795), influenced by the wide range from -0.659 to 14.183, indicating that while most companies are growing, some are facing significant sales declines, and a few have exceptionally high growth.
+
+
+```python
+selected_vars = ['doc_length', 'mb', 'prof_a', 'sales_g']
+print(sample[selected_vars].describe().transpose())
+```
+
+                count          mean           std           min           25%  \
+    doc_length  507.0  78820.039448  34067.939276  24625.000000  57103.000000   
+    mb          360.0      3.540122      2.849579      0.878375      1.647529   
+    prof_a      360.0      0.156984      0.085532     -0.099432      0.099672   
+    sales_g     359.0      0.274456      0.794789     -0.658981      0.081679   
+    
+                         50%           75%            max  
+    doc_length  72355.000000  88972.000000  302467.000000  
+    mb              2.555072      4.339597      14.733148  
+    prof_a          0.142768      0.202291       0.405925  
+    sales_g         0.157239      0.282148      14.183099  
+
+
+### Contextual Sentiment
+
+Variables have good coverage and variability. It is expected not all companies will be discussing the topics and that they will be lower than the overall sentiment scores due to that they are subsets.
+
+Overall the Real Estate sector was the most positive and the Energy sector was the most negative.
+
+
+```python
+industry_sentiment = net_sample.groupby('GICS Sector')[['overall_sentiment', 'combined_positive', 'combined_negative']].mean()
+# Sorting by positive sentiment for visualization purposes
+print(industry_sentiment.sort_values(by=['overall_sentiment'], ascending=False))
+```
+
+                            overall_sentiment  combined_positive  \
+    GICS Sector                                                    
+    Real Estate                     -0.001505           0.440570   
+    Industrials                     -0.048664           0.516701   
+    Consumer Staples                -0.066672           0.550902   
+    Information Technology          -0.068918           0.526592   
+    Consumer Discretionary          -0.077206           0.513642   
+    Materials                       -0.081382           0.475074   
+    Communication Services          -0.092391           0.469452   
+    Health Care                     -0.098737           0.505402   
+    Utilities                       -0.117551           0.363609   
+    Financials                      -0.138788           0.413767   
+    Energy                          -0.147559           0.410810   
+    
+                            combined_negative  
+    GICS Sector                                
+    Real Estate                      0.442075  
+    Industrials                      0.565365  
+    Consumer Staples                 0.617575  
+    Information Technology           0.595510  
+    Consumer Discretionary           0.590848  
+    Materials                        0.556455  
+    Communication Services           0.561843  
+    Health Care                      0.604139  
+    Utilities                        0.481159  
+    Financials                       0.552555  
+    Energy                           0.558368  
+
+
+By topic, information technology was the most vocal which makese sense given that sector are the creators and drivers of such technology.
+
+
+```python
+topics = ['topic1', 'topic2', 'topic3']
+sentiment_cols = ['positive', 'negative']
+for topic in topics:
+    for sentiment in sentiment_cols:
+        industry_topic_sentiment = net_sample.groupby('GICS Sector')[f'{topic}_{sentiment}'].mean()
+        industry_topic_sentiment_sorted = industry_topic_sentiment.sort_values(ascending=False)
+        print(f"Top sectors for {topic} {sentiment} sentiment:")
+        print(industry_topic_sentiment_sorted.head())
+```
+
+    Top sectors for topic1 positive sentiment:
+    GICS Sector
+    Information Technology    0.000823
+    Real Estate               0.000529
+    Communication Services    0.000504
+    Financials                0.000492
+    Health Care               0.000423
+    Name: topic1_positive, dtype: float64
+    Top sectors for topic1 negative sentiment:
+    GICS Sector
+    Information Technology    0.000902
+    Communication Services    0.000627
+    Financials                0.000614
+    Health Care               0.000607
+    Real Estate               0.000589
+    Name: topic1_negative, dtype: float64
+    Top sectors for topic2 positive sentiment:
+    GICS Sector
+    Information Technology    0.000348
+    Financials                0.000242
+    Communication Services    0.000230
+    Materials                 0.000225
+    Industrials               0.000210
+    Name: topic2_positive, dtype: float64
+    Top sectors for topic2 negative sentiment:
+    GICS Sector
+    Information Technology    0.000434
+    Materials                 0.000359
+    Financials                0.000349
+    Communication Services    0.000325
+    Consumer Discretionary    0.000318
+    Name: topic2_negative, dtype: float64
+    Top sectors for topic3 positive sentiment:
+    GICS Sector
+    Information Technology    0.000027
+    Health Care               0.000008
+    Communication Services    0.000006
+    Energy                    0.000006
+    Consumer Discretionary    0.000005
+    Name: topic3_positive, dtype: float64
+    Top sectors for topic3 negative sentiment:
+    GICS Sector
+    Information Technology    0.000010
+    Health Care               0.000007
+    Consumer Discretionary    0.000006
+    Communication Services    0.000005
+    Financials                0.000005
+    Name: topic3_negative, dtype: float64
+
+
+A couple caveats about the data is that accouting data is from the year before. Additionally, this is not an accurate respresentation of the entire market as the S&P 500 is a subset of the entire market which includes generally large cap and profitable companies.
+
+## 3. Results
+
+Tble with the correlation of each (10) sentiment measure against both (2) return measures
+
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+filtered_data = sample[returns_and_sentiment_vars]
+correlation_matrix = filtered_data.corr()
+correlation_results = correlation_matrix.iloc[3:, :3]
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_results, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation between Sentiment Measures and Return Measures')
+plt.xlabel('Return Measures')
+plt.ylabel('Sentiment Measures')
+plt.show()
+```
+
+
+    
+![heatmap](/images/report_23_0.png "heatmap")
+
+
+
+```py
+from scipy.stats import linregress
+# Selecting a subset of sentiment measures for visualization
+sentiment_measures_subset = ['lm_positive', 'lm_negative', 'ml_positive', 'ml_negative']
+return_measures_subset = ['return_on_filing', 'return_t_to_t_plus_2']
+
+# Creating a figure with subplots
+fig, axs = plt.subplots(len(sentiment_measures_subset), len(return_measures_subset), figsize=(15, 10))
+
+# Looping through each combination of sentiment and return measures
+for i, sentiment_measure in enumerate(sentiment_measures_subset):
+    for j, return_measure in enumerate(return_measures_subset):
+        # Scatterplot
+        axs[i, j].scatter(filtered_data[return_measure], filtered_data[sentiment_measure], alpha=0.5)
+        
+        # Regression line
+        slope, intercept, r_value, _, _ = linregress(filtered_data[return_measure], filtered_data[sentiment_measure])
+        axs[i, j].plot(filtered_data[return_measure], intercept + slope * filtered_data[return_measure], 'r', label=f'r={r_value:.2f}')
+        
+        # Setting the title and labels
+        axs[i, j].set_title(f'{sentiment_measure} vs {return_measure}')
+        axs[i, j].set_xlabel(return_measure)
+        axs[i, j].set_ylabel(sentiment_measure)
+        axs[i, j].legend()
+
+# Adjust layout for better readability
+plt.tight_layout()
+
+# Show the figure
+plt.show()
+
+```
+
+
+    
+![png](/images/report_24_0.png)
+    
+
+
+#### Discussion Topic 1
+
+- **LM Sentiment Variables**: The LM sentiment variables consist of `lm_positive` and `lm_negative`. The scatterplots and correlation coefficients indicate that there's a subtle relationship between these sentiment measures and the first return variable (returns around the 10-K publication). The `lm_positive` sentiment shows a slight negative correlation with the returns, suggesting that higher positive sentiment according to the LM dictionary might not be associated with immediate positive returns around the 10-K filing. Conversely, `lm_negative` shows almost no correlation, indicating that the negative sentiment from the LM dictionary might not have a clear relationship with the returns around the 10-K publication.
+- **ML Sentiment Variables**: The ML sentiment variables, `ml_positive` and `ml_negative`, also exhibit their unique relationship with the returns around the 10-K publication. The `ml_positive` sentiment shows a slight positive correlation, suggesting that higher positive sentiment identified through machine learning techniques might be associated with slightly positive returns around the 10-K filing. The `ml_negative` sentiment shows a positive correlation as well, which is counterintuitive but might suggest that the context or the manner in which negative sentiments are expressed could be interpreted differently by the market.
+
+
+#### Discussion Topic 2
+
+Garcia, Hu, and Rohrer paper shows clear correlation which I did not. One has to consider though that they looked at a different time period and considered a lot more data in both companies and time. Therefore the results are not directly comparable.
+
+#### Discussion Topic 3
+
+The contextual sentiment measures (topic1_positive, topic1_negative, topic2_positive, topic2_negative, topic3_positive, topic3_negative). These measures all averaged at zero indiciating as a whole, there is not much to investigate. However, based on breaking it down by sector there might be some interesting insights to be found due to that the sectors had different sentiment scores, even by topic.
+
+#### Discussion Topic 4
+
+There is no difference in sign and magnitude between the two return variables. This suggests that the market is widely neutral and that for almost every good news there is bad news. 

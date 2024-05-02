@@ -6,10 +6,9 @@ import {
   EndOfPageDetector,
   PageEndProvider,
 } from "../components";
-import "../../global.css";
 
 // Step 2: Define your component
-const WorkPage = () => {
+const ContactPage = () => {
   return (
     <>
       <PageEndProvider>
@@ -19,6 +18,7 @@ const WorkPage = () => {
         </div>
         <Layout pageTitle="Contact">
           <br /> <br /> <br /> <br />
+          <br />
           <p
             style={{
               fontStyle: "italic",
@@ -26,7 +26,8 @@ const WorkPage = () => {
               lineHeight: 1.5,
             }}
           >
-            Reach out to me if you want to chat about my work experience or anything else!
+            Reach out to me if you want to chat about my work experience or
+            anything else!
           </p>
           <br />
           <EndOfPageDetector />
@@ -40,4 +41,4 @@ const WorkPage = () => {
 export const Head = () => <Seo title="Contact" />
 
 // Step 3: Export your component
-export default WorkPage
+export default ContactPage;

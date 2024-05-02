@@ -55,27 +55,35 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 
     // Create blog post pages
     const blogPosts = result.data.allMyBlogPosts.nodes;
-    blogPosts.forEach((node) => {
-      createPage({
-        path: `blogs/${node.frontmatter.slug}`,
-        component: `${blogPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-        context: {
-          id: node.id,
-        },
+    if (blogPosts.length === 0) {
+      reporter.warn("There are no blog posts!");
+    } else {
+      blogPosts.forEach((node) => {
+        createPage({
+          path: `blogs/${node.frontmatter.slug}`,
+          component: `${blogPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+          context: {
+            id: node.id,
+          },
+        });
       });
-    });
+    }
 
     // Create project post pages
     const projectPosts = result.data.allMyProjectPosts.nodes;
-    projectPosts.forEach((node) => {
-      createPage({
-        path: `projects/${node.frontmatter.slug}`,
-        component: `${projectPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
-        context: {
-          id: node.id,
-        },
+    if (projectPosts.length === 0) {
+      reporter.warn("There are no project posts!");
+    } else {
+      projectPosts.forEach((node) => {
+        createPage({
+          path: `projects/${node.frontmatter.slug}`,
+          component: `${projectPostTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
+          context: {
+            id: node.id,
+          },
+        });
       });
-    });
+    }
 
     // Log out the number of posts
     reporter.info(`Number of Blog Posts: ${blogPosts.length}`);

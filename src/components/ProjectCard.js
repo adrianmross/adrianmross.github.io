@@ -30,6 +30,8 @@ const handleMouseEnter = () => {
       className={projectCard}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      role='button'
+      tabIndex={0}
     >
       {/* className={`${projectCard} ${isHovered ? hovered : ""}`}*/}
       <div className={coverImage}>

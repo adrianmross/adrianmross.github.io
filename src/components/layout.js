@@ -1,6 +1,9 @@
 import * as React from 'react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
-import '../../global.css'
+import { 
+  Link, 
+  // useStaticQuery, 
+  // graphql 
+} from 'gatsby'
 import {
   container,
   // heading,
@@ -12,6 +15,11 @@ import {
   sitemapContainer,
   footerBar,
 } from './layout.module.css'
+
+import "@mantine/core/styles.css";
+
+import { MantineProvider } from "@mantine/core";
+import { theme } from "../theme";
 
 const sitemap = [
   {
@@ -46,23 +54,23 @@ const social = [
     name: "GitHub",
     url: "https://github.com/adrianmross",
   },
-]
+];
 
 const Layout = ({ pageTitle, children }) => {
-  const data = useStaticQuery(graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-  `)
+  // const data = useStaticQuery(graphql`
+  // query {
+  //   site {
+  //     siteMetadata {
+  //       title
+  //     }
+  //   }
+  // }
+  // `)
 
   // could add a feature that know's what page you're on and highlights it in the sitemap
 
   return (
-    <>
+    < MantineProvider theme={theme} >
       <div className={container}>
         {/* <header className={siteTitle}>{data.site.siteMetadata.title}</header> */}
         {/* <nav>
@@ -121,7 +129,7 @@ const Layout = ({ pageTitle, children }) => {
       <footer className={footerBar}>
         <p>Adrian Michael Ross &#169; 2023</p>
       </footer>
-    </>
+    </MantineProvider>
   )
 }
 
