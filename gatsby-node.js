@@ -1,5 +1,23 @@
 const path = require(`path`);
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type Mdx implements Node {
+      frontmatter: Frontmatter
+      internal: Internal
+    }
+    type Frontmatter {
+      title: String
+      slug: String
+    }
+    type Internal {
+      contentFilePath: String
+    }
+  `);
+};
+
+
 // Log out information after a build is done
 exports.onPostBuild = ({ reporter }) => {
   reporter.info(`Your Gatsby site has been built!`);
