@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import { getPost, getPosts } from '@/lib/posts'
-import { Badge } from '../../components/ui/badge'
+import { formatDate } from '../../components/posts'
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -37,13 +37,14 @@ export default async function BlogPostPage({ params }: PageProps) {
   if (!post) notFound()
 
   return (
-    <article className="mx-auto max-w-3xl py-16">
-      <Badge>{post.tag}</Badge>
-      <h1 className="mt-5 text-4xl font-semibold md:text-6xl">{post.title}</h1>
-      <p className="mono mt-4 text-sm text-[var(--muted)]">{post.publishedAt}</p>
-      <div className="mdx mt-10">
-        <MDXRemote source={post.body} components={{ code: Code }} />
+    <section>
+      <h1 className="title font-semibold text-2xl tracking-tighter">{post.title}</h1>
+      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">{formatDate(post.publishedAt)}</p>
       </div>
-    </article>
+      <article className="prose">
+        <MDXRemote source={post.body} components={{ code: Code }} />
+      </article>
+    </section>
   )
 }
