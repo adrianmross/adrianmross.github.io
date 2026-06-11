@@ -1,20 +1,5 @@
 import Link from 'next/link'
-import { getPosts } from '@/lib/posts'
-
-const postHrefs: Record<string, `/blog/${string}`> = {
-  'minimal-motion': '/blog/minimal-motion',
-  'static-export-portfolios': '/blog/static-export-portfolios',
-}
-
-function getBlogPostHref(slug: string) {
-  const href = postHrefs[slug]
-
-  if (!href) {
-    throw new Error(`Invalid blog post slug: ${slug}`)
-  }
-
-  return href
-}
+import { getPosts, type Post } from '@/lib/posts'
 
 export function formatDate(date: string, includeRelative = false) {
   let currentDate = new Date()
@@ -58,19 +43,45 @@ export function BlogPosts() {
   return (
     <div>
       {allBlogs.map((post) => {
-        const href = getBlogPostHref(post.slug)
+        if (post.slug === 'static-export-portfolios') {
+          return (
+            <Link
+              key="static-export-portfolios"
+              className="flex flex-col space-y-1 mb-4"
+              href="/blog/static-export-portfolios"
+            >
+              <BlogPostContent post={post} />
+            </Link>
+          )
+        }
 
-        return (
-          <Link key={post.slug} className="flex flex-col space-y-1 mb-4" href={href}>
-            <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-              <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
-                {formatDate(post.publishedAt, false)}
-              </p>
-              <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">{post.title}</p>
-            </div>
-          </Link>
-        )
+        if (post.slug === 'minimal-motion') {
+          return (
+            <Link
+              key="minimal-motion"
+              className="flex flex-col space-y-1 mb-4"
+              href="/blog/minimal-motion"
+            >
+              <BlogPostContent post={post} />
+            </Link>
+          )
+        }
+
+        throw new Error(`Invalid blog post slug: ${post.slug}`)
       })}
+    </div>
+  )
+}
+
+function BlogPostContent({ post }: { post: Post }) {
+  return (
+    <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
+      <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
+        {formatDate(post.publishedAt, false)}
+      </p>
+      <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
+        {post.title}
+      </p>
     </div>
   )
 }
