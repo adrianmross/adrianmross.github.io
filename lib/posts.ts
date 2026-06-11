@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
+const postFilenamePattern = /^[a-z0-9-]+\.mdx$/
 
 export type Post = {
   slug: string
@@ -16,7 +17,7 @@ export type Post = {
 export function getPosts(): Post[] {
   return fs
     .readdirSync(postsDirectory)
-    .filter((file) => file.endsWith('.mdx'))
+    .filter((file) => postFilenamePattern.test(file))
     .map((file) => {
       const slug = file.replace(/\.mdx$/, '')
       const raw = fs.readFileSync(path.join(postsDirectory, file), 'utf8')
