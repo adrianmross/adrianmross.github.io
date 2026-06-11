@@ -1,0 +1,18 @@
+---
+title: Static portfolios should behave like products
+summary: Notes on treating a personal site as a small shipped system instead of a pile of pages.
+publishedAt: 2026-06-10
+tag: Systems
+---
+
+A portfolio does not need much runtime, but it does need a real delivery path. The useful baseline is boring on purpose: deterministic content, static output, reviewable source, and one workflow that explains how the public URL is produced.
+
+The interaction layer should be small enough to reason about. A moving highlight on a card, a pressed state on a command, or a signature that responds to focus can make the page feel alive without making the page depend on a client-side app shell.
+
+```ts
+const deployment = {
+  host: 'GitHub Pages',
+  artifact: 'out',
+  runtime: 'static',
+}
+```

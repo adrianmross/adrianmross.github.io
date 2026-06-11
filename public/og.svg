@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f5ef"/>
+  <path d="M0 480c166-80 286-96 438-48 188 59 323 38 493-74 100-65 190-83 269-54v326H0z" fill="#111"/>
+  <path d="M96 120h1008M96 510h1008" stroke="#111" stroke-opacity=".14"/>
+  <text x="96" y="258" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#111">Adrian M. Ross</text>
+  <text x="100" y="322" font-family="Arial, sans-serif" font-size="30" fill="#555">Developer / Designer / Doer</text>
+  <text x="96" y="564" font-family="Arial, sans-serif" font-size="24" fill="#f7f5ef">adrianmross.github.io</text>
+</svg>

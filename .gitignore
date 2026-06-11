@@ -1,6 +1,9 @@
 node_modules/
 .cache/
-public
+.devenv/
+.next/
+out/
+tsconfig.tsbuildinfo
 .DS_Store
 .vscode/*
 .vscode/

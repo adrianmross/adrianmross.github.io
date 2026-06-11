@@ -1,0 +1,25 @@
+[[pre-start]]
+copy = "wt step copy-ignored --force"
+install = "portless-worktree-dev install"
+
+[post-start]
+dev = "wt step tether -- portless-worktree-dev run"
+
+[post-switch]
+dev = "portless-worktree-dev start"
+
+[[pre-merge]]
+typecheck = "portless-worktree-dev typecheck"
+build = "portless-worktree-dev build"
+
+[post-remove]
+dev = "portless-worktree-dev stop --branch '{{ branch }}'"
+
+[aliases]
+dev = "portless-worktree-dev start"
+dev-foreground = "portless-worktree-dev run"
+dev-restart = "portless-worktree-dev restart"
+dev-stop = "portless-worktree-dev stop"
+dev-status = "portless-worktree-dev status"
+dev-url = "portless-worktree-dev url"
+dev-logs = "portless-worktree-dev logs"
