@@ -1,14 +1,19 @@
 import Link from 'next/link'
 import { getPosts } from '@/lib/posts'
 
-const blogPostSlugPattern = /^[a-z0-9-]+$/
+const postHrefs: Record<string, `/blog/${string}`> = {
+  'minimal-motion': '/blog/minimal-motion',
+  'static-export-portfolios': '/blog/static-export-portfolios',
+}
 
 function getBlogPostHref(slug: string) {
-  if (!blogPostSlugPattern.test(slug)) {
+  const href = postHrefs[slug]
+
+  if (!href) {
     throw new Error(`Invalid blog post slug: ${slug}`)
   }
 
-  return `/blog/${slug}`
+  return href
 }
 
 export function formatDate(date: string, includeRelative = false) {
