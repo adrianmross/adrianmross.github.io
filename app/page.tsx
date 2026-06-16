@@ -16,8 +16,11 @@ export default async function Page() {
         </p>
         <p>
           I studied Computer Science &amp; Business at{' '}
-          <a className="gleam-link" href="https://www.lehigh.edu">
-            Lehigh University
+          <a className="mi-blackletter" href="https://www.lehigh.edu" aria-label="Lehigh University">
+            <span className="mi-blackletter__plain">Lehigh University</span>
+            <span className="mi-blackletter__ornate" aria-hidden="true">
+              𝔏𝔢𝔥𝔦𝔤𝔥 𝔘𝔫𝔦𝔳𝔢𝔯𝔰𝔦𝔱𝔶
+            </span>
           </a>.
           When there I was part of the Scalable Systems &amp; Software 
           Research Group and Blockchain Lab.
@@ -25,7 +28,7 @@ export default async function Page() {
         <p>
           Most public work lives on{' '}
           <a
-            className="github-link"
+            className="mi-github-motif"
             href="https://github.com/adrianmross"
             rel="noopener noreferrer"
             target="_blank"
@@ -35,13 +38,13 @@ export default async function Page() {
           </a>
           ; the rest is mostly quiet notes, rough ideas, and the occasional{' '}
           <a
-            className="twitter-x"
+            className="mi-twitter-x"
             href="https://x.com"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span className="twitter-old">Twitter</span>
-            <span className="twitter-new">X</span>
+            <span className="mi-twitter-x__old">Twitter</span>
+            <span className="mi-twitter-x__new">X</span>
           </a>
           .
         </p>

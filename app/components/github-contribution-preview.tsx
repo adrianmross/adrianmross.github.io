@@ -7,14 +7,14 @@ type GitHubContributionPreviewProps = {
 
 export function GitHubContributionPreview({ levels, source }: GitHubContributionPreviewProps) {
   return (
-    <span className="github-bubble" aria-hidden="true">
-      <span className="github-bubble-title">
+    <span className="mi-github-motif__bubble" aria-hidden="true">
+      <span className="mi-github-motif__title">
         {source === 'github' ? 'GitHub activity' : 'activity motif'}
       </span>
-      <span className="contrib-window">
-        <span className="contrib-track">
+      <span className="mi-github-motif__window">
+        <span className="mi-github-motif__track">
           {levels.map((level, index) => (
-            <span key={index} className={`contrib-cell level-${level}`} />
+            <span key={index} className={`mi-github-motif__cell mi-github-motif__cell--level-${level}`} />
           ))}
         </span>
       </span>

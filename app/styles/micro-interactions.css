@@ -1,0 +1,364 @@
+.mi-blackletter {
+  position: relative;
+  display: inline-grid;
+  align-items: baseline;
+  color: inherit;
+  font-weight: 500;
+  grid-template-areas: 'text';
+  text-decoration: none;
+  vertical-align: baseline;
+  white-space: nowrap;
+}
+
+.mi-blackletter__plain,
+.mi-blackletter__ornate {
+  grid-area: text;
+  transform-origin: 50% 58%;
+  transition:
+    opacity 220ms ease,
+    transform 420ms cubic-bezier(0.18, 0.82, 0.22, 1);
+}
+
+.mi-blackletter__plain {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.mi-blackletter__ornate {
+  font-family:
+    'Old English Text MT',
+    'Engravers Old English',
+    'Cloister Black',
+    'UnifrakturMaguntia',
+    'UnifrakturCook',
+    fantasy;
+  font-size: 1.04em;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(0.06em) scale(0.96);
+}
+
+.mi-blackletter:hover .mi-blackletter__plain,
+.mi-blackletter:focus-visible .mi-blackletter__plain {
+  opacity: 0;
+  transform: translateY(-0.04em) scale(0.98);
+}
+
+.mi-blackletter:hover .mi-blackletter__ornate,
+.mi-blackletter:focus-visible .mi-blackletter__ornate {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.mi-blackletter:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.mi-github-motif {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mi-github-motif::after {
+  position: absolute;
+  right: 0;
+  bottom: 0.03em;
+  left: 0;
+  height: 0.20em;
+  border-radius: 999px;
+  background: rgb(212 212 212 / 0.72);
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: -1;
+}
+
+.mi-github-motif:hover::after,
+.mi-github-motif:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.mi-github-motif__bubble {
+  position: absolute;
+  bottom: calc(100% + 0.8rem);
+  left: 50%;
+  width: 17rem;
+  padding: 0.65rem;
+  border: 1px solid rgb(229 229 229);
+  border-radius: 0.65rem;
+  background: rgb(255 255 255 / 0.98);
+  box-shadow:
+    0 14px 34px rgb(0 0 0 / 0.12),
+    0 1px 0 rgb(255 255 255 / 0.8) inset;
+  color: rgb(38 38 38);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 0.45rem) scale(0.98);
+  transform-origin: bottom center;
+  transition:
+    opacity 180ms ease,
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 10;
+}
+
+.mi-github-motif__bubble::after {
+  position: absolute;
+  bottom: -0.38rem;
+  left: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-right: 1px solid rgb(229 229 229);
+  border-bottom: 1px solid rgb(229 229 229);
+  background: rgb(255 255 255 / 0.98);
+  content: '';
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.mi-github-motif:hover .mi-github-motif__bubble,
+.mi-github-motif:focus-visible .mi-github-motif__bubble {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.mi-github-motif__title {
+  display: block;
+  margin-bottom: 0.42rem;
+  color: rgb(115 115 115);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.mi-github-motif__window {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mi-github-motif__track {
+  display: grid;
+  grid-auto-columns: 0.42rem;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(7, 0.42rem);
+  gap: 0.15rem;
+  width: max-content;
+  transform: translateX(0);
+  transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mi-github-motif:hover .mi-github-motif__track,
+.mi-github-motif:focus-visible .mi-github-motif__track {
+  transform: translateX(-8.4rem);
+}
+
+.mi-github-motif__cell {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 0.12rem;
+  background: rgb(235 237 240);
+}
+
+.mi-github-motif__cell--level-1 {
+  background: #9be9a8;
+}
+
+.mi-github-motif__cell--level-2 {
+  background: #40c463;
+}
+
+.mi-github-motif__cell--level-3 {
+  background: #30a14e;
+}
+
+.mi-github-motif__cell--level-4 {
+  background: #216e39;
+}
+
+.mi-twitter-x {
+  position: relative;
+  display: inline-grid;
+  align-items: baseline;
+  color: inherit;
+  font-weight: 500;
+  grid-template-areas: 'stack';
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.mi-twitter-x__old,
+.mi-twitter-x__new {
+  grid-area: stack;
+  transition:
+    opacity 180ms ease,
+    transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mi-twitter-x__old {
+  position: relative;
+}
+
+.mi-twitter-x__old::after {
+  position: absolute;
+  right: 0;
+  top: 52%;
+  left: 0;
+  height: 1px;
+  background: currentColor;
+  content: '';
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.mi-twitter-x__new {
+  justify-self: center;
+  opacity: 0;
+  transform: translateY(0.22em) scale(0.82);
+}
+
+.mi-twitter-x:hover .mi-twitter-x__old,
+.mi-twitter-x:focus-visible .mi-twitter-x__old {
+  opacity: 0.28;
+  transform: translateY(-0.08em);
+}
+
+.mi-twitter-x:hover .mi-twitter-x__old::after,
+.mi-twitter-x:focus-visible .mi-twitter-x__old::after {
+  transform: scaleX(1);
+}
+
+.mi-twitter-x:hover .mi-twitter-x__new,
+.mi-twitter-x:focus-visible .mi-twitter-x__new {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.mi-gleam-text {
+  --gleam-blue: #47a3f3;
+  --gleam-green: #84cc16;
+  --gleam-glow: rgb(71 163 243 / 0.22);
+
+  display: inline-block;
+  color: rgb(38 38 38);
+  font-weight: 500;
+  text-decoration: none;
+  background-image: linear-gradient(
+    110deg,
+    currentColor 0%,
+    currentColor 30%,
+    var(--gleam-blue) 43%,
+    var(--gleam-green) 50%,
+    currentColor 66%,
+    currentColor 100%
+  );
+  background-position: 100% 50%;
+  background-size: 340% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition:
+    background-position 700ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    text-shadow 180ms ease;
+}
+
+.mi-gleam-text:hover,
+.mi-gleam-text:focus-visible {
+  background-position: 0% 50%;
+  text-shadow: 0 0 14px var(--gleam-glow);
+}
+
+.mi-github-motif:focus-visible,
+.mi-twitter-x:focus-visible,
+.mi-gleam-text:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.mi-gleam-text:focus-visible {
+  outline-color: currentColor;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mi-github-motif,
+  .mi-github-motif::after,
+  .mi-github-motif__bubble,
+  .mi-github-motif__track,
+  .mi-twitter-x__old,
+  .mi-twitter-x__old::after,
+  .mi-twitter-x__new,
+  .mi-blackletter__plain,
+  .mi-blackletter__ornate,
+  .mi-gleam-text {
+    transition: none;
+  }
+
+  .mi-github-motif__bubble,
+  .mi-github-motif__track,
+  .mi-twitter-x__old,
+  .mi-twitter-x__new,
+  .mi-blackletter__plain,
+  .mi-blackletter__ornate {
+    transform: none;
+  }
+}
+
+.dark .mi-gleam-text {
+  color: rgb(229 229 229);
+  --gleam-blue: #7dd3fc;
+  --gleam-green: #bef264;
+  --gleam-glow: rgb(125 211 252 / 0.24);
+}
+
+.dark .mi-github-motif::after {
+  background: rgb(64 64 64 / 0.72);
+}
+
+.dark .mi-github-motif__bubble {
+  border-color: rgb(38 38 38);
+  background: rgb(10 10 10 / 0.98);
+  box-shadow:
+    0 14px 34px rgb(0 0 0 / 0.42),
+    0 1px 0 rgb(255 255 255 / 0.05) inset;
+  color: rgb(245 245 245);
+}
+
+.dark .mi-github-motif__bubble::after {
+  border-color: rgb(38 38 38);
+  background: rgb(10 10 10 / 0.98);
+}
+
+.dark .mi-github-motif__title {
+  color: rgb(163 163 163);
+}
+
+.dark .mi-github-motif__cell {
+  background: rgb(22 27 34);
+}
+
+.dark .mi-github-motif__cell--level-1 {
+  background: #0e4429;
+}
+
+.dark .mi-github-motif__cell--level-2 {
+  background: #006d32;
+}
+
+.dark .mi-github-motif__cell--level-3 {
+  background: #26a641;
+}
+
+.dark .mi-github-motif__cell--level-4 {
+  background: #39d353;
+}
