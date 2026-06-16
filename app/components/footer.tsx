@@ -22,7 +22,7 @@ export function Footer() {
         </li>
         <li>
           <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100"
             rel="noopener noreferrer"
             target="_blank"
             href="/feed.xml"
@@ -33,7 +33,7 @@ export function Footer() {
         </li>
         <li>
           <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
+            className="flex items-center hover:text-neutral-800 dark:hover:text-neutral-100"
             rel="noopener noreferrer"
             target="_blank"
             href="https://github.com/adrianmross/adrianmross.github.io"
