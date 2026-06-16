@@ -1,5 +1,6 @@
 [[pre-start]]
 copy = "wt step copy-ignored --force"
+direnv = "direnv allow ."
 install = "portless-worktree-dev install"
 
 [post-start]

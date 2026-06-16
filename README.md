@@ -13,8 +13,15 @@ Personal portfolio for [adrianmross.github.io](https://adrianmross.github.io), r
 ## Local Development
 
 ```sh
+direnv allow
 pnpm install
 pnpm run dev
+```
+
+Without direnv, enter the same pinned toolchain manually:
+
+```sh
+devenv shell
 ```
 
 Build the GitHub Pages artifact:
