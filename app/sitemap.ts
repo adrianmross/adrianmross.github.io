@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { site } from '@/lib/content'
+import { site } from '@/site'
 import { getPosts } from '@/lib/posts'
 
 export const dynamic = 'force-static'
