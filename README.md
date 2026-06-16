@@ -25,6 +25,10 @@ pnpm run build
 
 The static output is written to `out/`.
 
+The home page GitHub activity preview is fetched at build time from GitHub's GraphQL API when `GITHUB_CONTRIBUTIONS_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN` is available. Without a token, the build falls back to a deterministic decorative pattern.
+
+Post drafts can be hidden from production by adding `draft: true` to an MDX file's frontmatter. In `next dev`, drafts appear only on `/blog` with a muted draft marker; the home page still shows published posts only.
+
 ## Remote Dev
 
 This repo includes WorkTrunk and Portless hooks for `vmordws02`:
