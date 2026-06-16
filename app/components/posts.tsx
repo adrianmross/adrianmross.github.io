@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getPosts, type Post } from '@/lib/posts'
+import { getBlogPostPath, getPosts, type Post } from '@/lib/posts'
 import { cn } from '@/lib/utils'
 
 const fullDateFormatter = new Intl.DateTimeFormat('en-US', {
@@ -56,7 +56,7 @@ export function BlogPosts({ includeDrafts = false, showDraftStatus = false }: Bl
             'flex flex-col space-y-1 mb-4',
             post.draft && 'opacity-45 hover:opacity-70',
           )}
-          href={`/blog/${post.slug}`}
+          href={getBlogPostPath(post.slug)}
         >
           <BlogPostContent post={post} showDraftStatus={showDraftStatus} />
         </Link>

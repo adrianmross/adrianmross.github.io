@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { site } from '@/site'
-import { getPosts } from '@/lib/posts'
+import { getBlogPostUrl, getPosts } from '@/lib/posts'
 
 export const dynamic = 'force-static'
 
@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   const posts = getPosts().map((post) => ({
-    url: `${site.url}/blog/${post.slug}`,
+    url: getBlogPostUrl(post.slug, site.url),
     lastModified: new Date(post.publishedAt),
   }))
 

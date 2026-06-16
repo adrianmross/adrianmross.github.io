@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
+const postSlugPattern = /^[a-z0-9-]+$/
 const postFilenamePattern = /^[a-z0-9-]+\.mdx$/
 
 export type Post = {
@@ -48,4 +49,16 @@ export function getPosts({ includeDrafts = false }: GetPostsOptions = {}): Post[
 
 export function getPost(slug: string, options?: GetPostsOptions) {
   return getPosts(options).find((post) => post.slug === slug)
+}
+
+export function getBlogPostPath(slug: string) {
+  if (!postSlugPattern.test(slug)) {
+    throw new Error(`Invalid blog post slug: ${slug}`)
+  }
+
+  return `/blog/${encodeURIComponent(slug)}`
+}
+
+export function getBlogPostUrl(slug: string, baseUrl: string) {
+  return new URL(getBlogPostPath(slug), baseUrl).toString()
 }
