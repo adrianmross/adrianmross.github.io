@@ -1,16 +1,28 @@
 import Link from 'next/link'
 import { getPosts, type Post } from '@/lib/posts'
+import { cn } from '@/lib/utils'
+
+const fullDateFormatter = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+})
 
 export function formatDate(date: string, includeRelative = false) {
-  let currentDate = new Date()
-  if (!date.includes('T')) {
-    date = `${date}T00:00:00`
-  }
-  let targetDate = new Date(date)
+  const normalizedDate = date.includes('T') ? date : `${date}T00:00:00.000Z`
+  let targetDate = new Date(normalizedDate)
+  let fullDate = fullDateFormatter.format(targetDate)
 
-  let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear()
-  let monthsAgo = currentDate.getMonth() - targetDate.getMonth()
-  let daysAgo = currentDate.getDate() - targetDate.getDate()
+  if (!includeRelative) {
+    return fullDate
+  }
+
+  let currentDate = new Date()
+
+  let yearsAgo = currentDate.getUTCFullYear() - targetDate.getUTCFullYear()
+  let monthsAgo = currentDate.getUTCMonth() - targetDate.getUTCMonth()
+  let daysAgo = currentDate.getUTCDate() - targetDate.getUTCDate()
 
   let formattedDate = ''
 
@@ -24,63 +36,48 @@ export function formatDate(date: string, includeRelative = false) {
     formattedDate = 'Today'
   }
 
-  let fullDate = targetDate.toLocaleString('en-us', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  })
-
-  if (!includeRelative) {
-    return fullDate
-  }
-
   return `${fullDate} (${formattedDate})`
 }
 
-export function BlogPosts() {
-  let allBlogs = getPosts()
+type BlogPostsProps = {
+  includeDrafts?: boolean
+  showDraftStatus?: boolean
+}
+
+export function BlogPosts({ includeDrafts = false, showDraftStatus = false }: BlogPostsProps) {
+  let allBlogs = getPosts({ includeDrafts })
 
   return (
     <div>
-      {allBlogs.map((post) => {
-        if (post.slug === 'static-export-portfolios') {
-          return (
-            <Link
-              key="static-export-portfolios"
-              className="flex flex-col space-y-1 mb-4"
-              href="/blog/static-export-portfolios"
-            >
-              <BlogPostContent post={post} />
-            </Link>
-          )
-        }
-
-        if (post.slug === 'minimal-motion') {
-          return (
-            <Link
-              key="minimal-motion"
-              className="flex flex-col space-y-1 mb-4"
-              href="/blog/minimal-motion"
-            >
-              <BlogPostContent post={post} />
-            </Link>
-          )
-        }
-
-        throw new Error(`Invalid blog post slug: ${post.slug}`)
-      })}
+      {allBlogs.map((post) => (
+        <Link
+          key={post.slug}
+          className={cn(
+            'flex flex-col space-y-1 mb-4',
+            post.draft && 'opacity-45 hover:opacity-70',
+          )}
+          href={`/blog/${post.slug}`}
+        >
+          <BlogPostContent post={post} showDraftStatus={showDraftStatus} />
+        </Link>
+      ))}
     </div>
   )
 }
 
-function BlogPostContent({ post }: { post: Post }) {
+function BlogPostContent({ post, showDraftStatus }: { post: Post; showDraftStatus: boolean }) {
   return (
     <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
       <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
         {formatDate(post.publishedAt, false)}
       </p>
-      <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
-        {post.title}
+      <p className="text-neutral-900 dark:text-neutral-100 tracking-tight flex items-center gap-2">
+        <span>{post.title}</span>
+        {post.draft && showDraftStatus ? (
+          <span className="rounded-sm border border-neutral-300 px-1.5 py-0.5 text-[10px] font-medium uppercase leading-none text-neutral-500 dark:border-neutral-700 dark:text-neutral-400">
+            draft
+          </span>
+        ) : null}
       </p>
     </div>
   )

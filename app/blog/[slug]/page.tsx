@@ -10,13 +10,15 @@ type PageProps = {
   params: Promise<{ slug: string }>
 }
 
+const isDevelopment = process.env.NODE_ENV === 'development'
+
 export function generateStaticParams() {
-  return getPosts().map((post) => ({ slug: post.slug }))
+  return getPosts({ includeDrafts: isDevelopment }).map((post) => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const post = getPost(slug)
+  const post = getPost(slug, { includeDrafts: isDevelopment })
   if (!post) return {}
 
   return {
@@ -33,7 +35,7 @@ function Code({ children, ...props }: HTMLAttributes<HTMLElement>) {
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params
-  const post = getPost(slug)
+  const post = getPost(slug, { includeDrafts: isDevelopment })
   if (!post) notFound()
 
   return (

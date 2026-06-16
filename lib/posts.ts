@@ -11,10 +11,19 @@ export type Post = {
   summary: string
   publishedAt: string
   tag: string
+  draft: boolean
   body: string
 }
 
-export function getPosts(): Post[] {
+type GetPostsOptions = {
+  includeDrafts?: boolean
+}
+
+function isDraft(value: unknown) {
+  return value === true || value === 'true'
+}
+
+export function getPosts({ includeDrafts = false }: GetPostsOptions = {}): Post[] {
   return fs
     .readdirSync(postsDirectory)
     .filter((file) => postFilenamePattern.test(file))
@@ -29,12 +38,14 @@ export function getPosts(): Post[] {
         summary: String(data.summary),
         publishedAt: String(data.publishedAt),
         tag: String(data.tag ?? 'Note'),
+        draft: isDraft(data.draft),
         body: content,
       }
     })
+    .filter((post) => includeDrafts || !post.draft)
     .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 }
 
-export function getPost(slug: string) {
-  return getPosts().find((post) => post.slug === slug)
+export function getPost(slug: string, options?: GetPostsOptions) {
+  return getPosts(options).find((post) => post.slug === slug)
 }
