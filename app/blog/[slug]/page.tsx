@@ -12,6 +12,8 @@ type PageProps = {
 
 const isDevelopment = process.env.NODE_ENV === 'development'
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return getPosts({ includeDrafts: isDevelopment }).map((post) => ({ slug: post.slug }))
 }
