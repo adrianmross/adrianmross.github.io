@@ -5,6 +5,7 @@ import { site } from '@/site'
 import { Footer } from './components/footer'
 import { Navbar } from './components/nav'
 import './global.css'
+import './styles/micro-interactions.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
