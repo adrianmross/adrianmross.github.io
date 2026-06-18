@@ -1,5 +1,6 @@
 import { BlogPosts } from './components/posts'
 import { GitHubContributionPreview } from './components/github-contribution-preview'
+import { AutomationText, NetworkText, PlatformOpsText } from './components/micro-text'
 import { getGitHubContributionLevels } from '@/lib/github'
 
 export default async function Page() {
@@ -10,9 +11,9 @@ export default async function Page() {
       <h1 className="mb-8 text-2xl font-semibold tracking-tighter">Adrian Ross</h1>
       <div className="intro-copy">
         <p>
-          A software engineer currently building distributed systems 
-          and platform-op tools. I&apos;m just lazy enough to automate 
-          everything so I never have to again.
+          A software engineer currently building <NetworkText>distributed systems</NetworkText>{' '}
+          and <PlatformOpsText>platform-op tools</PlatformOpsText>. I&apos;m just lazy enough to{' '}
+          <AutomationText>automate everything</AutomationText> so I never have to again.
         </p>
         <p>
           I studied Computer Science &amp; Business at{' '}
@@ -22,8 +23,8 @@ export default async function Page() {
               𝔏𝔢𝔥𝔦𝔤𝔥 𝔘𝔫𝔦𝔳𝔢𝔯𝔰𝔦𝔱𝔶
             </span>
           </a>.
-          When there I was part of the Scalable Systems &amp; Software 
-          Research Group and Blockchain Lab.
+          When there I was part of the Scalable Systems and Software Research Group
+          and Blockchain Lab.
         </p>
         <p>
           Most public work lives on{' '}
