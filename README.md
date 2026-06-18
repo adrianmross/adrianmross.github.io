@@ -10,6 +10,11 @@ Personal portfolio for [adrianmross.github.io](https://adrianmross.github.io), r
 - Shadcn-style local UI components
 - Vercel Analytics and Speed Insights clients
 
+## Micro-Interactions
+
+Reusable text effects live in `app/styles/micro-interactions.css` with `mi-*` class names. See
+`docs/micro-interactions.md` for the local library notes and extraction path.
+
 ## Local Development
 
 ```sh
