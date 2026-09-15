@@ -39,7 +39,7 @@ The static output is written to `out/`.
 
 The home page GitHub activity preview is fetched at build time from GitHub's GraphQL API when `GITHUB_CONTRIBUTIONS_TOKEN`, `GITHUB_TOKEN`, or `GH_TOKEN` is available. Without a token, the build falls back to a deterministic decorative pattern.
 
-Post drafts can be hidden from production by adding `draft: true` to an MDX file's frontmatter. In `next dev`, drafts appear only on `/blog` with a muted draft marker; the home page still shows published posts only.
+Drafts live in `content/drafts/` instead of `content/posts/` and are gitignored, so they never get committed or built into production. In `next dev`, drafts appear only on `/blog` with a muted draft marker; the home page still shows published posts only. Promote a draft by moving its `.mdx` file into `content/posts/`.
 
 ## Remote Dev
 

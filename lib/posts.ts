@@ -3,6 +3,7 @@ import path from 'node:path'
 import matter from 'gray-matter'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
+const draftsDirectory = path.join(process.cwd(), 'content/drafts')
 const postSlugPattern = /^[a-z0-9-]+$/
 const postFilenamePattern = /^[a-z0-9-]+\.mdx$/
 
@@ -20,17 +21,17 @@ type GetPostsOptions = {
   includeDrafts?: boolean
 }
 
-function isDraft(value: unknown) {
-  return value === true || value === 'true'
-}
+function readPostsFrom(directory: string, draft: boolean): Post[] {
+  if (!fs.existsSync(directory)) {
+    return []
+  }
 
-export function getPosts({ includeDrafts = false }: GetPostsOptions = {}): Post[] {
   return fs
-    .readdirSync(postsDirectory)
+    .readdirSync(directory)
     .filter((file) => postFilenamePattern.test(file))
     .map((file) => {
       const slug = file.replace(/\.mdx$/, '')
-      const raw = fs.readFileSync(path.join(postsDirectory, file), 'utf8')
+      const raw = fs.readFileSync(path.join(directory, file), 'utf8')
       const { data, content } = matter(raw)
 
       return {
@@ -39,12 +40,17 @@ export function getPosts({ includeDrafts = false }: GetPostsOptions = {}): Post[
         summary: String(data.summary),
         publishedAt: String(data.publishedAt),
         tag: String(data.tag ?? 'Note'),
-        draft: isDraft(data.draft),
+        draft,
         body: content,
       }
     })
-    .filter((post) => includeDrafts || !post.draft)
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+}
+
+export function getPosts({ includeDrafts = false }: GetPostsOptions = {}): Post[] {
+  const posts = readPostsFrom(postsDirectory, false)
+  const drafts = includeDrafts ? readPostsFrom(draftsDirectory, true) : []
+
+  return [...posts, ...drafts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 }
 
 export function getPost(slug: string, options?: GetPostsOptions) {
