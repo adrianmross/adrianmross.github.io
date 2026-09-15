@@ -50,7 +50,12 @@ export function getPosts({ includeDrafts = false }: GetPostsOptions = {}): Post[
   const posts = readPostsFrom(postsDirectory, false)
   const drafts = includeDrafts ? readPostsFrom(draftsDirectory, true) : []
 
-  return [...posts, ...drafts].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+  const postsBySlug = new Map(posts.map((post) => [post.slug, post]))
+  for (const draft of drafts) {
+    postsBySlug.set(draft.slug, draft)
+  }
+
+  return [...postsBySlug.values()].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 }
 
 export function getPost(slug: string, options?: GetPostsOptions) {
