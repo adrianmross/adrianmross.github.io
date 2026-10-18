@@ -1,0 +1,10 @@
+# Keep dependencies and local inputs ready before entering a new worktree.
+/node_modules/
+/content/drafts/
+/.env
+/.env.*
+/devenv.local.nix
+/devenv.local.yaml
+
+# .devenv and .direnv contain paths and state for their original worktree.
+# Rebuild Next.js output in its own worktree instead of copying it.

@@ -11,18 +11,18 @@ const fullDateFormatter = new Intl.DateTimeFormat('en-US', {
 
 export function formatDate(date: string, includeRelative = false) {
   const normalizedDate = date.includes('T') ? date : `${date}T00:00:00.000Z`
-  let targetDate = new Date(normalizedDate)
-  let fullDate = fullDateFormatter.format(targetDate)
+  const targetDate = new Date(normalizedDate)
+  const fullDate = fullDateFormatter.format(targetDate)
 
   if (!includeRelative) {
     return fullDate
   }
 
-  let currentDate = new Date()
+  const currentDate = new Date()
 
-  let yearsAgo = currentDate.getUTCFullYear() - targetDate.getUTCFullYear()
-  let monthsAgo = currentDate.getUTCMonth() - targetDate.getUTCMonth()
-  let daysAgo = currentDate.getUTCDate() - targetDate.getUTCDate()
+  const yearsAgo = currentDate.getUTCFullYear() - targetDate.getUTCFullYear()
+  const monthsAgo = currentDate.getUTCMonth() - targetDate.getUTCMonth()
+  const daysAgo = currentDate.getUTCDate() - targetDate.getUTCDate()
 
   let formattedDate = ''
 
@@ -45,7 +45,7 @@ type BlogPostsProps = {
 }
 
 export function BlogPosts({ includeDrafts = false, showDraftStatus = false }: BlogPostsProps) {
-  let allBlogs = getPosts({ includeDrafts })
+  const allBlogs = getPosts({ includeDrafts })
 
   return (
     <div>

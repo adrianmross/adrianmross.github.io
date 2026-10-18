@@ -9,3 +9,9 @@ tsconfig.tsbuildinfo
 .DS_Store
 .vscode/*
 .vscode/
+
+.env
+.env.*
+!.env.example
+devenv.local.nix
+devenv.local.yaml

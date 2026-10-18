@@ -6,48 +6,40 @@
   "author": "Adrian Ross",
   "type": "module",
   "engines": {
-    "node": "22 || 24"
+    "node": "24.x"
   },
   "scripts": {
     "dev": "next dev",
-    "dev:portless": "portless-worktree-dev run",
-    "dev:watch": "portless-worktree-dev start",
-    "dev:watch:restart": "portless-worktree-dev restart",
-    "dev:watch:status": "portless-worktree-dev status",
-    "dev:watch:stop": "portless-worktree-dev stop",
-    "dev:watch:logs": "portless-worktree-dev logs",
-    "url:portless": "portless-worktree-dev url",
+    "dev:portless": "portless run",
     "build": "next build",
     "start": "next start",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
-  "portless": {
-    "name": "adrianmross-github-io"
-  },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.1.1",
-    "@tailwindcss/postcss": "^4.1.17",
-    "@vercel/analytics": "^1.5.0",
-    "@vercel/speed-insights": "^1.2.0",
+    "@radix-ui/react-slot": "^1.5.0",
+    "@tailwindcss/postcss": "^4.3.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "geist": "^1.5.1",
+    "geist": "^1.8.1",
     "gray-matter": "^4.0.3",
-    "lucide-react": "^0.468.0",
-    "next": "^16.3.3",
+    "lucide-react": "^1.59.0",
+    "next": "^16.4.2",
     "next-mdx-remote": "^6.0.0",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "sugar-high": "^0.6.1",
-    "tailwind-merge": "^2.5.5",
-    "tailwindcss": "^4.1.17"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sugar-high": "^2.6.0",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
-    "portless": "0.13.0",
-    "typescript": "^5.7.2"
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.2",
+    "portless": "0.15.8",
+    "typescript": "^5.9.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
