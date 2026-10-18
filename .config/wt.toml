@@ -1,5 +1,5 @@
 [[pre-start]]
-copy = "wt step copy-ignored --force"
+copy = "wt step copy-ignored"
 direnv = "direnv allow ."
 
 [[pre-merge]]
@@ -9,3 +9,7 @@ build = "pnpm run build"
 
 [aliases]
 dev = "pnpm exec portless run"
+
+[step.copy-ignored]
+# These caches contain worktree paths or output that is cheap to regenerate.
+exclude = [".devenv/", ".direnv/", ".next/", "out/", ".cache/", "tsconfig.tsbuildinfo"]

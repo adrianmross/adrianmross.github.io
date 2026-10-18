@@ -29,7 +29,9 @@ Without direnv, enter the same pinned toolchain manually:
 devenv shell
 ```
 
-The first shell load in a new worktree can take minutes while Nix evaluates the environment and downloads or builds missing tools. Changing `devenv.nix`, `devenv.yaml`, or `devenv.lock` can trigger that work again. Once cached, subsequent loads should take seconds. If a user-level `wt` hook is warming the environment in the background, the first foreground load may still wait for that work to finish.
+Worktrunk copies only the dependencies and local inputs listed in `.worktreeinclude` before entering a new worktree. It skips existing destination files. Generated Next.js output and the path-bound `.devenv`/`.direnv` state stay with their original worktree, keeping the copy small and avoiding stale environment state.
+
+Nix reuses installed tools across worktrees, but each new path still needs its own environment evaluation. Initial tool downloads can take minutes; even with those tools installed, a new worktree can take several seconds to initialize. Changing `devenv.nix`, `devenv.yaml`, or `devenv.lock` can trigger that work again. Reentering an initialized worktree is much faster. A user-level background `wt` warmup can start evaluation earlier, but entering immediately may still wait for it to finish.
 
 Build the GitHub Pages artifact:
 
