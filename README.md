@@ -29,6 +29,8 @@ Without direnv, enter the same pinned toolchain manually:
 devenv shell
 ```
 
+The first shell load in a new worktree can take minutes while Nix evaluates the environment and downloads or builds missing tools. Changing `devenv.nix`, `devenv.yaml`, or `devenv.lock` can trigger that work again. Once cached, subsequent loads should take seconds. If a user-level `wt` hook is warming the environment in the background, the first foreground load may still wait for that work to finish.
+
 Build the GitHub Pages artifact:
 
 ```sh
