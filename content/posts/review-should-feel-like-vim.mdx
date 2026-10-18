@@ -7,7 +7,7 @@ tag: Code-review
 
 I built review-mode.nvim because I wanted code review to fit the way I already use Neovim.
 
-There are good review plugins out there. But the ones I tried never felt quite native to my setup. The bindings were never right, and similar enough to native bindings or other popular plugins. And each plugin was a bit too opinionated that stopped me from behing able to extend it the way I wanted to.
+There are good review plugins out there. But the ones I tried never felt quite native to my setup. The bindings were never right, not similar enough to native bindings or other popular plugins. And each plugin was too opinionated, which stopped me from behing able to extend it the way I wanted.
 
 I wanted to open the codebase, use existing tools, and have review become a quick switch in and out. Same files. Same LSPs and syntax highlighting. Same habits. With just the extra layer of context I needed to do proper review: what changed, what others said about it, what I still needed to look at.
 
@@ -50,7 +50,7 @@ Working in ordinary files also makes a different suggestion workflow possible.
 
 I can edit the proposed code with my normal completion, formatting, and language tools. On an edited line, `<leader>rr` turns the edit into a suggestion draft. When I post or queue it, the corresponding edit is undone and the proposed change lives in the review instead.
 
-The inverse works too: a suggestion someone left can become an unsaved trial in my buffer. I can inspect it, apply it if I want to test it from disk, or revert the trial. Saving makes it an full edit. A little cleaner, than accepting that suggestion in GitHub, it not passing the linter, and then failing CI. Suggestions should happen locally.
+The inverse works too: a suggestion someone left can become an unsaved trial in my buffer. I can inspect it, apply it if I want to test it from disk, or revert the trial. Saving makes it a full edit. That's a little cleaner than accepting that suggestion in GitHub, only to have it fail the linter and then CI. Suggestions should happen locally.
 
 ## Almost a dedicated mode
 
