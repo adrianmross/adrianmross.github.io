@@ -1,0 +1,61 @@
+---
+title: I wanted code review to feel native
+summary: Why I built review-mode.nvim and made the choices I did
+publishedAt: 2026-10-17
+tag: Code-review
+---
+
+I built review-mode.nvim because I wanted code review to fit the way I already use Neovim.
+
+There are good review plugins out there. But the ones I tried never felt quite native to my setup. The bindings were never right, and similar enough to native bindings or other popular plugins. And each plugin was a bit too opinionated that stopped me from behing able to extend it the way I wanted to.
+
+I wanted to open the codebase, use existing tools, and have review become a quick switch in and out. Same files. Same LSPs and syntax highlighting. Same habits. With just the extra layer of context I needed to do proper review: what changed, what others said about it, what I still needed to look at.
+
+That became [review-mode.nvim](https://github.com/adrianmross/review-mode.nvim). The GitHub outages were another good motivation.
+
+![Review mode file list](/images/review-mode-screenshot.png)
+
+## A mode you can leave
+
+One useful design decision was separating the review session from being actively in review mode.
+
+The session holds the PR context, comments, changed files, hunks, and viewed state. The mode changes how I move through that information.
+
+While I’m reviewing, `]c` moves through hunks, `]r` moves through message threads, and `]f` moves through changed files. Gitsigns compares the code against the PR base.
+
+Then I can toggle out.
+
+The review session stays loaded, but the mode’s global key mappings are removed and the previous ones restored. The gutter returns to the normal index comparison, useful for regular Gitsigns. I can work on the code, stage something, or make a commit without ending the review.
+
+Toggling back re-enters the loaded session. It doesn’t have to discover the PR or fetch all comments again just because I stopped reviewing for a moment.
+
+That distinction matters because reviewing rarely stays a single activity. I read a change, follow a reference, try something, and come back. The plugin should accommodate that movement.
+
+
+## Borrowing keys carefully
+
+I split the bindings into two lifetimes.
+
+The mode layer contains navigation keys that temporarily change meaning. The session layer contains review actions, such as opening threads or composing a comment, that remain available while the session exists.
+
+Both layers save the global mappings they replace and restore them when their lifetime ends. The defaults can individually be remapped, disabled, or replaced with Lua functions to the user's preference.
+
+There’s an easy detail to get wrong here: a buffer-local mapping isn’t the same as a global one. If the current buffer has its own `]c`, blindly saving whatever `maparg()` returns can capture the wrong mapping. Restoring that later can put a buffer’s mapping somewhere it never belonged.
+
+The plugin explicitly looks for the global mapping it is replacing. Existing buffer-local mappings retain their own precedence; this isn’t an attempt to take ownership of every key in every buffer.
+
+## Suggestions start as code
+
+Working in ordinary files also makes a different suggestion workflow possible.
+
+I can edit the proposed code with my normal completion, formatting, and language tools. On an edited line, `<leader>rr` turns the edit into a suggestion draft. When I post or queue it, the corresponding edit is undone and the proposed change lives in the review instead.
+
+The inverse works too: a suggestion someone left can become an unsaved trial in my buffer. I can inspect it, apply it if I want to test it from disk, or revert the trial. Saving makes it an full edit. A little cleaner, than accepting that suggestion in GitHub, it not passing the linter, and then failing CI. Suggestions should happen locally.
+
+## Almost a dedicated mode
+
+This isn’t a new built-in Vim mode. Neovim’s mode() still reports normal, insert, or visual mode. Review is a key layer and a session lifecycle around those modes. The statusline helper can show REVIEW INSERT, for example, so neither context disappears.
+
+But in daily use, that’s the feeling I’m after: enter a review, use the editor I already know, step out when I need to work, and return without rebuilding my place.
+
+So that’s the reason the plugin exists. Your review workflow should feel at home in Vim.
