@@ -7,8 +7,8 @@ Personal portfolio for [adrianmross.github.io](https://adrianmross.github.io), r
 - Next.js App Router with static export for GitHub Pages
 - Tailwind CSS v4
 - MDX posts through `next-mdx-remote`
-- Shadcn-style local UI components
-- Vercel Analytics and Speed Insights clients
+- shadcn/ui (`components.json`; add components with `pnpm dlx shadcn@latest add <name>`)
+- ESLint (`eslint-config-next`), TypeScript, devenv + direnv toolchain (Node 24, pnpm)
 
 ## Micro-Interactions
 
@@ -41,12 +41,6 @@ The home page GitHub activity preview is fetched at build time from GitHub's Gra
 
 Drafts live in `content/drafts/` instead of `content/posts/` and are gitignored, so they never get committed or built into production. In `next dev`, drafts appear only on `/blog` with a muted draft marker; the home page still shows published posts only. Promote a draft by moving its `.mdx` file into `content/posts/`.
 
-## Remote Dev
+## Portless
 
-This repo includes WorkTrunk and Portless hooks for `vmordws02`:
-
-```sh
-devenv shell
-portless-worktree-dev start
-portless-worktree-dev url
-```
+`wt dev` (or `pnpm run dev:portless`) serves the site at `https://<worktree>.adrianmross-github-io.localhost` through [portless](https://github.com/vercel-labs/portless), so each worktree gets its own origin. The name lives in `portless.json`.

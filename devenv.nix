@@ -33,8 +33,6 @@ in {
   env = {
     NEXT_TELEMETRY_DISABLED = "1";
     NODE_EXTRA_CA_CERTS = "/etc/pki/tls/certs/ca-bundle.crt";
-    PORTLESS_APP_NAME = "adrianmross-github-io";
-    PORTLESS_REQUIRED_NODE_MAJORS = "22 24";
   };
 
   enterShell = ''
@@ -65,25 +63,26 @@ in {
     echo "adrianmross.github.io dev env"
     echo "  pnpm install --frozen-lockfile"
     echo "  pnpm run dev"
-    echo "  wt dev"
+    echo "  wt dev   (portless: https://<worktree>.adrianmross-github-io.localhost)"
   '';
 
   scripts.versions.exec = ''
     node --version
     pnpm --version
-    portless-worktree-dev --help >/dev/null
+    pnpm exec portless --version
   '';
 
   tasks = {
     "dev:versions".exec = "versions";
     "dev:install".exec = "pnpm install --frozen-lockfile";
+    "dev:lint".exec = "pnpm run lint";
     "dev:typecheck".exec = "pnpm run typecheck";
     "dev:build".exec = "pnpm run build";
     "dev:portless".exec = "pnpm run dev:portless";
   };
 
   enterTest = ''
-    node --version | grep -E '^v(22|24)\.'
+    node --version | grep -E '^v24\.'
     pnpm --version
   '';
 }
