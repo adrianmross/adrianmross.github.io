@@ -1,6 +1,6 @@
 # adrianmross.github.io
 
-Personal portfolio for [adrianmross.github.io](https://adrianmross.github.io), rebuilt as a statically exported Next.js site based on Vercel's Portfolio Blog Starter Kit.
+Personal portfolio for [adrianmross.github.io](https://adrianmross.github.io).
 
 ## Stack
 
