@@ -43,4 +43,4 @@ Drafts live in `content/drafts/` instead of `content/posts/` and are gitignored,
 
 ## Portless
 
-`wt dev` (or `pnpm run dev:portless`) serves the site at `https://<worktree>.adrianmross-github-io.localhost` through [portless](https://github.com/vercel-labs/portless), so each worktree gets its own origin. The name lives in `portless.json`.
+`wt dev` (or `pnpm run dev:portless`) serves the site at `https://<worktree>.adrianmross-github-io.localhost:1355` through [portless](https://github.com/vercel-labs/portless), so each worktree gets its own origin. The base name comes from `portless.json`; Portless derives the worktree prefix from the branch (for example, `chore/modernize-stack` becomes `modernize-stack`). The default HTTPS proxy port is `1355`, so this branch serves `https://modernize-stack.adrianmross-github-io.localhost:1355`.

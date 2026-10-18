@@ -19,11 +19,6 @@ in {
     jq
     ripgrep
     fd
-    typescript-language-server
-    vscode-langservers-extracted
-    tailwindcss-language-server
-    nil
-    nixd
     alejandra
     statix
     deadnix
@@ -32,7 +27,6 @@ in {
 
   env = {
     NEXT_TELEMETRY_DISABLED = "1";
-    NODE_EXTRA_CA_CERTS = "/etc/pki/tls/certs/ca-bundle.crt";
   };
 
   enterShell = ''
@@ -63,7 +57,7 @@ in {
     echo "adrianmross.github.io dev env"
     echo "  pnpm install --frozen-lockfile"
     echo "  pnpm run dev"
-    echo "  wt dev   (portless: https://<worktree>.adrianmross-github-io.localhost)"
+    echo "  wt dev   (portless: https://<worktree>.adrianmross-github-io.localhost:1355)"
   '';
 
   scripts.versions.exec = ''
