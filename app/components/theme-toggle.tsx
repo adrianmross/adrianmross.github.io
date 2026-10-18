@@ -1,24 +1,24 @@
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useSyncExternalStore } from 'react'
 
 type Theme = 'light' | 'dark'
 
 const STORAGE_KEY = 'adrianmross-theme'
 
-function getPreferredTheme(): Theme {
-  if (typeof window === 'undefined') {
-    return 'light'
+const listeners = new Set<() => void>()
+
+function subscribe(listener: () => void) {
+  listeners.add(listener)
+  return () => {
+    listeners.delete(listener)
   }
+}
 
-  const storedTheme = window.localStorage.getItem(STORAGE_KEY)
-
-  if (storedTheme === 'light' || storedTheme === 'dark') {
-    return storedTheme
-  }
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+// The inline script in layout.tsx sets the `dark` class before paint, so the DOM is the source of truth.
+function getTheme(): Theme {
+  return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
 }
 
 function applyTheme(theme: Theme, animate = false) {
@@ -34,20 +34,14 @@ function applyTheme(theme: Theme, animate = false) {
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('light')
-
-  useEffect(() => {
-    const preferredTheme = getPreferredTheme()
-    setTheme(preferredTheme)
-    applyTheme(preferredTheme)
-  }, [])
+  const theme = useSyncExternalStore(subscribe, getTheme, () => 'light')
 
   function toggleTheme() {
     const nextTheme = theme === 'dark' ? 'light' : 'dark'
 
-    setTheme(nextTheme)
     window.localStorage.setItem(STORAGE_KEY, nextTheme)
     applyTheme(nextTheme, true)
+    listeners.forEach((listener) => listener())
   }
 
   return (
